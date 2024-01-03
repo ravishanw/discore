@@ -1,0 +1,107 @@
+<%- include('partials/header.ejs'); -%>
+<div class="row explore-row mx-0">
+  <div class="col-md-6 branding-window px-0">
+    <div class="h-discore-container">
+      <img
+        src="images/discoreLogo.png"
+        alt="discore logo"
+        class="discore-titan"
+      />
+      <h1 class="h-titan">Discore</h1>
+    </div>
+    <div class="wave-mask"></div>
+    <img
+      class="wave-titan"
+      src="images/soundwave_1_cropped.png"
+      alt="sound wave"
+    />
+    <div class="collapsed-line"></div>
+  </div>
+  <div class="col-md-6 dial-pad-window px-0">
+    <div class="explore-divider"></div>
+    <div class="dial-pad">
+      <div><h2>Explore submitted reviews by artist</h2></div>
+      <form action="/explore" method="POST">
+        <div class="row dial-row mx-0">
+          <button
+            class="col-md-4 neon-key"
+            type="submit"
+            name="dialKey"
+            value="see-all"
+          >
+            See All
+          </button>
+          <button
+            class="col-md-4 neon-key n-k-2"
+            type="submit"
+            name="dialKey"
+            value="abc"
+          >
+            ABC
+          </button>
+          <button
+            class="col-md-4 neon-key"
+            type="submit"
+            name="dialKey"
+            value="def"
+          >
+            DEF
+          </button>
+        </div>
+        <div class="row dial-row d-r-2 mx-0">
+          <button
+            class="col-md-4 neon-key"
+            type="submit"
+            name="dialKey"
+            value="ghi"
+          >
+            GHI
+          </button>
+          <button
+            class="col-md-4 neon-key n-k-2"
+            type="submit"
+            name="dialKey"
+            value="jkl"
+          >
+            JKL
+          </button>
+          <button
+            class="col-md-4 neon-key"
+            type="submit"
+            name="dialKey"
+            value="mno"
+          >
+            MNO
+          </button>
+        </div>
+        <div class="row dial-row mx-0">
+          <button
+            class="col-md-4 neon-key"
+            type="submit"
+            name="dialKey"
+            value="pqrs"
+          >
+            PQRS
+          </button>
+          <button
+            class="col-md-4 neon-key n-k-2"
+            type="submit"
+            name="dialKey"
+            value="tuv"
+          >
+            TUV
+          </button>
+          <button
+            class="col-md-4 neon-key"
+            type="submit"
+            name="dialKey"
+            value="wxyz"
+          >
+            WXYZ
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer.ejs'); -%>

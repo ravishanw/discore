@@ -1,0 +1,34 @@
+<%- include('partials/header.ejs'); -%>
+<div class="row mx-0 review-row">
+  <div class="col-md-6 album-art-window">
+    <img class="album-art" src="<%= albumArt %>" alt="" />
+    <img class="cyber-grid" src="images/cyber_grid.png" alt="neon grid" />
+  </div>
+  <div class="col-md-6 review-window">
+    <h2 class="h-artist">
+      Artist: <span class="body-text"><%= artistName %></span>
+    </h2>
+    <h2 class="h-album">
+      Album: <span class="body-text"><%= albumName %></span>
+    </h2>
+    <h2 class="h-year">
+      Year: <span class="body-text"><%= yearNumber %></span>
+    </h2>
+    <div class="review-divider"></div>
+    <div class="reviews-array">
+      <!-- receive the reviewArray and create the below blocks for each element -->
+      <% textArray.forEach((item)=>{ %>
+      <h2 class="h-rating">
+        <%= item.user_name %> Rating:
+        <span class="body-text"><%= item.rating %> %</span>
+      </h2>
+      <h2 class="h-title">
+        Review Title: <span class="body-text"><%= item.review_title %></span>
+      </h2>
+      <p class="review-text body-text"><%= item.review_text %></p>
+
+      <% }); %>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer.ejs'); -%>

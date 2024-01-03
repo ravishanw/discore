@@ -1,0 +1,984 @@
+h2 {
+    font-size: 1.2rem;
+}
+body {
+    background-color: #0F0F0F;
+    box-sizing: border-box;
+    color: #008170;
+    font-family: 'Share Tech Mono', monospace;
+    height: 100%;
+    margin:0;
+    width: 100%;
+}
+
+/* Custom scrollbar */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background:#008170;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    border: 1px solid #eeeeee;
+}
+::-webkit-scrollbar-corner {
+    background:#0F0F0F;
+}
+
+/* Outer wrapper */
+
+.container-fluid.outer-wrapper {
+    align-items: center;
+    display: flex;
+    min-height: 100vh;
+    margin:0;
+    padding:0;
+}
+
+/* Navbar */
+
+.navbar {
+    font-family: 'Share Tech Mono', monospace;
+    padding: 1% 15%;
+    position: absolute;
+    top:0;
+    width: 100%;
+    z-index: 9999;
+}
+.brand-container {
+    width:50%;
+}
+.brand-container img {
+    aspect-ratio: 1/1;
+    display: inline-block;
+    height: 40px;
+    margin-right: 20px;
+}
+.navbar-brand {
+    color:#008170;
+    width: fit-content;
+}
+.navbar-brand:hover {
+    color: #008170;
+}
+.nav-link {
+    color:#008170;
+}
+.nav-link:hover {
+    color:#008170;
+}
+.navbar-collapse {
+    margin: 10px 0 0 0;
+    width: 50%;
+}
+.nav-line {
+    background-color: #008170;
+    height: 30px;
+    width: 2px;
+}
+.navbar-nav {
+    justify-content: space-between;
+    padding-left: 58px;
+    width: 100%;
+}
+.navbar a {
+    border-radius: 20px;
+    font-size: 1rem;
+    padding: 5px 10px;
+}
+.navbar-nav a {
+    width: 7.5rem;
+}
+button.navbar-toggler {
+    border: 1px solid #008170;
+    box-shadow: none;
+    border-radius: 4px;
+}
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 129, 112, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Neon border */
+
+.neon-border a {
+    background: #0F0F0F;
+    border-radius: 5px;
+    color:#008170;
+    display: block;
+    font-family: 'Share Tech Mono', monospace;
+    position: relative;
+    text-decoration: none;
+}
+.neon-border a:hover:before,.neon-border a:hover:after {
+    background: linear-gradient(135deg,#008170 60%,#eeeeee);
+    border-radius: inherit;
+    content: '';
+    inset: -1px;
+    position: absolute;
+    z-index: -1;
+}
+.neon-border a::after {
+    filter: blur(3px);
+}
+
+/* Welcome screen */
+
+.welcome-screen {
+    margin-top: 10%;
+    width: 100%;
+}
+.welcome-discore {
+    padding: 0;
+}
+.welcome-screen h1 {
+    font-size: 9rem;
+    padding-right: 60px;
+    text-align:end;
+    width:100%;
+}
+.line-container {
+    width: fit-content;
+}
+.vertical-line {
+    border-left: 5px solid #008170;
+    height: 80px;
+    margin-top: 18px;
+    padding:0;
+    width: fit-content;
+}
+.concealer {
+    opacity: 0;
+}
+.link-container {
+    padding-left:55px;
+}
+.numeric {
+    color:#eeeeee;
+    margin: 0 10px 0 0;
+}
+.welcome-screen a {
+    font-size: 1.7rem;
+    width: 12rem;
+}
+.welcome-screen a:nth-child(2) {
+    margin: 5px 0;
+}
+.welcome-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 0;
+}
+.welcome-menu-inner {
+    padding-top: 40px;
+}
+
+/* Moon */
+
+.discore-moon {
+    bottom: 46%;
+    position:absolute;
+    right: 30%;
+    width: fit-content;
+}
+.discore-moon img {
+    aspect-ratio: 1/1;
+    height: 50px;
+}
+
+/* Waves */
+
+.wave-mask {
+    background-color: #0F0F0F;
+    bottom: 0;
+    height: 350px;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+}
+.wave {
+    bottom: 30px;
+    padding: 0;
+    position: absolute;
+}
+.wave img {
+    height: 350px;
+    width:100%;
+}
+
+/* Footer */
+
+footer {
+    align-items: center;
+    background-color: #008170;
+    bottom: 0;
+    color: #eeeeee;
+    display: flex;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 100;
+    justify-content: center;
+    padding: 5px 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+footer p {
+    margin: 0;
+}
+
+/* Review route */
+
+.review-row {
+    align-items: center;
+    height:100vh;
+    padding: 2% 0%;
+}
+.album-art-window {
+    padding: 0 12%;
+    position: relative;
+}
+.album-art {
+    margin-bottom: 20%;
+    padding: 0 10%;
+    width: 100%;
+}
+.cyber-grid {
+    left: 0;
+    padding: 0 15%;
+    position: absolute;
+    top: 60%;
+    width: 100%;
+    z-index: -1;
+}
+.review-window {
+    padding-right: 10%;
+}
+.review-text {
+    margin-bottom: 2.5rem;
+}
+.body-text {
+    color:#eeeeee;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 100;
+}
+.review-divider {
+    background: linear-gradient(135deg,#008170 60%,#eeeeee);
+    height: 1px;
+    margin: 20px 0;
+}
+.reviews-array {
+    max-height: 500px;
+    overflow: scroll;
+    padding-right: 20px;
+}
+
+/* Explore route */
+
+.explore-row {
+    align-items: center;
+    height:100vh;
+}
+.branding-window {
+    height: 100%;
+    position: relative;
+}
+.h-discore-container {
+    bottom: 40%;
+    left: 10%;
+    position: absolute;
+    z-index: 2;
+}
+.discore-titan {
+    aspect-ratio: 1/1;
+    height: 200px;
+    margin-bottom: 20px;
+}
+.h-titan {
+    font-size: 8rem;
+}
+.wave-titan {
+    height: 350px;
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+}
+.collapsed-line {
+    background-color: #008170;
+    bottom: 0;
+    height: 1px;
+    position: absolute;
+    visibility: hidden;
+    width: 100%;
+}
+.dial-pad-window {
+    height: 100%;
+    position: relative;
+}
+.explore-divider {
+    background-color: #008170;
+    height: 100%;
+    position: absolute;
+    width: 1px;
+}
+.dial-pad {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    padding: 10% 10% 10% 58px;
+}
+.dial-pad h2 {
+    margin-bottom: 20px;
+}
+.d-r-2 {
+    margin: 10px 0;
+}
+.n-k-2 {
+    margin: 0 10px;
+}
+.dial-row .neon-key {
+    height: 150px;
+    width: 150px;
+}
+.neon-key {
+    background: #0F0F0F;
+    border: none;
+    border-radius: 5px;
+    color:#008170;
+    display: flex;
+    font-size: 1.2rem;
+    padding: 10px;
+    position: relative;
+}
+button {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+    font: inherit;
+    border-radius: 0;
+    appearance: none;
+}
+.neon-key::before,.neon-key::after {
+    background: linear-gradient(135deg,#008170 60%,#eeeeee);
+    border-radius: inherit;
+    content: '';
+    inset: -1px;
+    position: absolute;
+    z-index: -1;
+}
+.neon-key:hover {
+    background: #008170;
+    color: #eeeeee;
+}
+.neon-key::after {
+    filter: blur(3px);
+}
+
+/* Select route */
+.select-btn {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+/* Animation classes */
+
+
+.blink {
+    animation: blink 2s 1;
+}
+.fadeIn {
+    animation: fadeIn 1s 1;
+}
+.slideOut {
+    animation: slideOut 1500ms 1;
+    overflow: hidden;
+}
+
+@keyframes slideOut {
+    0% {
+        width: 100%;
+    }
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Media queries */
+
+@media (max-width: 1430px) {
+    /* Welcome screen */
+    .welcome-screen {
+        margin-top: 15%;
+    }
+    .welcome-screen h1 {
+        font-size: 7rem;
+    }
+    .wave img {
+        height: 300px;
+    }
+    .discore-moon {
+        bottom: 44%;
+        right: 28%;
+    }
+    /* Explore route */
+    .dial-row .neon-key {
+        height: 120px;
+        width: 120px;
+    }
+    .discore-titan {
+        height: 150px;
+    }
+    .h-titan {
+        font-size: 6rem;
+    }
+}
+
+/* Nest hub max */
+
+@media (max-width: 1430px) and (max-height: 900px){
+    .welcome-screen {
+        margin-top: 12%;
+    }
+    .welcome-screen h1 {
+        font-size: 7rem;
+    }
+    .wave img {
+        height: 300px;
+    }
+    .discore-moon {
+        bottom: 44%;
+        right: 28%;
+    }
+}
+@media (max-width: 1100px) {
+    /* welcome screen */
+    .navbar {
+        padding: 1% 3%;
+    }
+    .welcome-screen {
+        margin-top: 25%;
+    }
+    .welcome-screen h1 {
+        font-size: 5rem;
+    }
+    .welcome-screen a {
+        font-size: 1.2rem;
+    }
+    .welcome-screen a {
+        width: 8rem;
+    }
+    .welcome-menu-inner {
+        padding-top: 20px;
+    }
+    .vertical-line {
+        margin-top: 10px;
+    }
+    .discore-moon {
+        bottom: 40%;
+    }
+    .wave img {
+        height: 300px;
+        object-fit: fill;
+    }
+}
+
+/* Ipad mini landscape */
+
+@media (max-width:1030px) and (max-height: 770px) {
+    /* welcome screen */
+    .welcome-screen {
+        margin-top: 20%;
+    }
+    /* explore route */
+    .h-discore-container {
+        bottom: 45%;
+    }
+    .discore-titan {
+        height: 100px;
+    }
+    .h-titan {
+        font-size: 5rem;
+    }
+}
+
+/* Nest hub */
+
+@media (max-width: 1100px) and (max-height: 610px) {
+    /* navbar */
+    .navbar {
+        padding: 1% 8%;
+    }
+    /* welcome screen */
+    .welcome-screen {
+        margin-top: 8%;
+    }
+    .welcome-screen h1 {
+        font-size: 5rem;
+    }
+    .welcome-screen a {
+        font-size: 1.2rem;
+    }
+    .neon-border a {
+        width: 8rem;
+    }
+    .welcome-menu-inner {
+        padding-top: 20px;
+    }
+    .vertical-line {
+        margin-top: 10px;
+    }
+    .discore-moon {
+        bottom: 45%;
+    }
+    .wave img {
+        height: 200px;
+        object-fit: cover;
+    }
+    /* explore route */
+    .h-discore-container {
+        bottom: 46%;
+    }
+    .discore-titan {
+        height: 100px;
+    }
+    .h-titan {
+        font-size: 5rem;
+    }
+    .wave-titan {
+        height: 260px;
+    }
+    /* select view */
+    .dial-pad h2 {
+        font-size: 1.2rem;
+        padding-left: 15px;
+    }
+    .select-window {
+        max-height: 90%;
+        overflow: scroll;
+        padding: 15px;
+    }
+    .review-row {
+        padding: 6% 0;
+    }
+    /* review route */
+    .reviews-array {
+        max-height: 380px;
+    }
+}
+@media (max-width: 975px) {
+    .navbar-nav a {
+        width: 6.5rem;
+    }
+    .h-titan {
+        font-size: 5rem;
+    }
+    .dial-row .neon-key {
+        height: 100px;
+        width: 100px;
+    }
+}
+@media (max-width: 930px) {
+    /* welcome screen */
+    .welcome-screen {
+        margin-top: 32%;
+    }
+    .welcome-screen h1 {
+        font-size: 4rem;
+    }
+}
+@media (max-width: 930px) and (min-height: 1360px) {
+    .welcome-screen h1 {
+        font-size: 6rem;
+    }
+    .welcome-screen a {
+        font-size: 1.5rem;
+        width: 12rem;
+    }
+    .wave img {
+        height: 200px;
+    }
+}
+@media (max-width: 840px) {
+    .dial-row .neon-key {
+        height: 80px;
+        width: 80px;
+    }
+}
+@media (max-width: 768px) {
+    /* navbar */
+    .navbar {
+        background-color: #0F0F0F;
+    }
+    .navbar-nav {
+        padding-left: 0;
+        border-bottom: 1px solid #008170;
+    }
+    .nav-item {
+        margin-bottom: 8px;
+    }
+    .nav-line {
+        height: 0;
+    }
+    /* welcome screen */
+    .welcome-screen h1 {
+        padding-right: 30px;
+    }
+    .vertical-line {
+        border-left: 2px solid #008170;
+        height: 80px;
+    }
+    .link-container {
+        padding-left: 28px;
+    }
+    .wave img {
+        height: 300px;
+        object-fit: fill;
+    }
+    /* explore route */
+    .branding-window {
+        height: 40%;
+    }
+    .dial-pad-window {
+        height: 60%;
+    }
+    .h-discore-container {
+        bottom: 30%;
+    }
+    .discore-titan {
+        height: 60px;
+    }
+    .h-titan {
+        font-size: 4rem;
+    }
+    .wave-titan {
+        height: 150px;
+        position: absolute;
+        bottom: 1px;
+        width: 100%;
+    }
+    .collapsed-line {
+        visibility: visible;
+    }
+    .explore-divider {
+        visibility: hidden;
+    }
+    .dial-pad {
+        padding: 2%;
+    }
+    .dial-pad h2 {
+        text-align: center;
+    }
+    .dial-row {
+        justify-content: center;
+    }
+    .dial-row .neon-key {
+        height: 100px;
+        width: 100px;
+    }
+    /* select view */
+    .select-window {
+        max-height: 90%;
+        overflow: scroll;
+        padding: 15px;
+    }
+    .select-btn {
+        justify-content: center;
+    }
+    /* review window */
+    .album-art-window {
+        display: flex;
+        height: 40%;
+        justify-content: center;
+    }
+    .album-art {
+        margin: 10% auto;
+        object-fit: scale-down;
+        width: 80%;
+    }
+    .cyber-grid {
+        left: 0;
+        padding: 0 25%;
+    }
+    .review-window {
+        height: 60%;
+        padding: 7% 5%;
+    }
+    .review-window h2 {
+        font-size: 1rem;
+    }
+    .reviews-array {
+        max-height: 320px;
+    }
+}
+
+/* ipad mini portrait */
+
+@media (min-width: 768px) and (min-height: 1024px) {
+    /* navbar */
+    .navbar-nav {
+        border-bottom: none;
+    }
+    /* explore route */
+    .branding-window {
+        height: 100%;
+    }
+    .dial-pad-window {
+        height: 100%;
+    }
+    .h-discore-container {
+        bottom: 45%;
+    }
+    .discore-titan {
+        height: 120px;
+    }
+    .h-titan {
+        font-size: 5.2rem;
+    }
+    .wave-titan {
+        height: 320px;
+    }
+    .collapsed-line {
+        visibility: hidden;
+    }
+    .explore-divider {
+        visibility: visible;
+    }
+}
+@media (max-width: 576px) {
+    /* navbar */
+    .navbar-nav a {
+        width: 7rem;
+    }
+    /* welcome screen */
+    .welcome-screen h1 {
+        padding-left: 7%;
+        text-align: left;
+    }
+    .welcome-menu-inner {
+        padding-left: 7%;
+    }
+    .vertical-line {
+        height: 1rem;
+        margin-top: 5px;
+    }
+    .link-container {
+        padding-left: 2%;;
+    }
+    /* explore route */
+    .h-titan {
+        font-size: 3rem;
+    }
+    /* review route */
+    .cyber-grid {
+        padding: 0 18%;
+        top: 62%;
+    }
+}
+
+/* suface duo */
+
+@media (max-width: 576px) and (max-height: 720px) {
+    /* welcome screen */
+    .welcome-screen {
+        margin-top: 10%;
+    }
+    .discore-moon {
+        bottom: 50%;
+    }
+    /* explore route */
+    .dial-row .neon-key {
+        height: 80px;
+        width: 80px;
+    }
+    /* review route */
+    .album-art {
+        margin: 12% auto 5%;
+    }
+    .cyber-grid {
+        top: 52%;
+    }
+    .reviews-array {
+        max-height: 260px;
+    }
+}
+
+@media (max-width: 360px) {
+    /* navbar */
+    .brand-container img {
+        height: 20px;
+    }
+    .navbar-toggler-icon {
+        height: 20px;
+        width: 20px;
+    }
+    /* welcome screen */
+    .welcome-screen {
+        margin-top: 10%;
+    }
+    .discore-moon {
+        bottom: 50%;
+    }
+    /* explore route */
+    .dial-row .neon-key {
+        border-radius: 3px;
+        height: 80px;
+        width: 80px;
+    }
+    /* review route */
+    .album-art-window {
+        height: 30%;
+    }
+    .review-window {
+        height: 70%;
+    }
+    .album-art {
+        margin: 10% auto 2%;
+    }
+}
+
+/* iphone se */
+
+@media (min-width: 360px) and (max-height: 670px) {
+    /* global */
+    h2 {
+        font-size: 1rem;
+    }
+    /* navbar */
+    .brand-container img {
+        height: 20px;
+    }
+    .navbar-toggler-icon {
+        height: 20px;
+        width: 20px;
+    }
+    /* welcome screen */
+    .welcome-screen {
+        margin-top: 8%;
+    }
+    .discore-moon {
+        bottom: 43%;
+    }
+    .wave img {
+        height: 220px;
+    }
+    /* explore route */
+    .discore-titan {
+        height: 50px;
+    }
+    .wave-titan {
+        height: 120px;
+    }
+    .dial-row .neon-key {
+        border-radius: 3px;
+        font-size: 1rem;
+    }
+    /* footer */
+    footer {
+        font-size: 0.8rem;
+    }
+    /* review route */
+    .cyber-grid {
+        top: 60%;
+    }
+    .reviews-array {
+        max-height: 240px;
+    }
+}
+
+/* Galaxy fold */
+
+@media (max-width: 280px) and (max-height: 655px) {
+    /* global */
+    h2 {
+        font-size: 1rem;
+    }
+    /* navbar */
+    .brand-container img {
+        height:30px;
+    }
+    .navbar-toggler-icon {
+        height: 20px;
+        width: 20px;
+    }
+    /* welcome screen */
+    .discore-moon {
+        bottom: 40%;
+    }
+    .wave img {
+        height: 200px;
+        object-fit: fill;
+    }
+    /* explore route */
+    .h-discore-container {
+        bottom: 36%;
+    }
+    .discore-titan {
+        height: 40px;
+        margin-bottom: 10px;
+    }
+    .h-titan {
+        font-size: 2.5rem;
+    }
+    .wave-titan {
+        height: 120px;
+    }
+    .dial-row .neon-key {
+        border-radius: 3px;
+        font-size: 1rem;
+        height: 60px;
+        width: 60px;
+    }
+    /* footer */
+    footer {
+        font-size: 0.8rem;
+    }
+    /* review route */
+    .album-art-window {
+        height: 30%;
+    }
+    .album-art {
+        margin: 20% auto 10%;
+        width: 100%;
+    }
+    .review-window {
+        height: 70%;
+    }
+    .review-divider {
+        margin: 10px 0;
+    }
+    .reviews-array {
+        max-height: 300px;
+    }
+}

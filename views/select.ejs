@@ -1,0 +1,57 @@
+<%- include('partials/header.ejs'); -%>
+<div class="row explore-row mx-0">
+  <div class="col-md-6 branding-window px-0">
+    <div class="h-discore-container">
+      <img
+        src="images/discoreLogo.png"
+        alt="discore logo"
+        class="discore-titan"
+      />
+      <h1 class="h-titan">Discore</h1>
+    </div>
+    <img
+      class="wave-titan"
+      src="images/soundwave_1_cropped.png"
+      alt="sound wave"
+    />
+    <div class="collapsed-line"></div>
+  </div>
+  <div class="col-md-6 dial-pad-window px-0">
+    <div class="explore-divider"></div>
+    <div class="dial-pad">
+      <div class="select-window">
+        <% if (selectItems[0].hasOwnProperty('artist_name')){ %>
+        <div><h2>Select artist</h2></div>
+        <form action="/artist" method="POST">
+          <% selectItems.forEach((item)=>{ %>
+          <button
+            class="neon-key select-btn"
+            type="submit"
+            name="artistSelect"
+            value="<%=item.id%>"
+          >
+            <%=item.artist_name%>
+          </button>
+
+          <% }); %> <%} else { %>
+          <div><h2>Select album</h2></div>
+          <form action="/album" method="POST">
+            <% selectItems.forEach((el)=>{ %>
+            <button
+              class="neon-key select-btn"
+              type="submit"
+              name="albumSelect"
+              value="<%=el.id%>"
+            >
+              <%=el.album_name%>
+            </button>
+            <% }); %>
+          </form>
+
+          <% } %>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer.ejs'); -%>

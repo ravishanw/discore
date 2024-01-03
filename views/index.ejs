@@ -1,0 +1,32 @@
+<%- include('partials/header.ejs'); -%>
+<!-- Welcome screen -->
+<div class="welcome-screen row mx-0">
+  <div class="welcome-discore col-sm-6">
+    <h1>discore</h1>
+  </div>
+  <div class="welcome-menu col-sm-6 col-md-6 neon-border">
+    <div class="welcome-menu-inner row mx-0">
+      <div class="col-1 px-0 line-container">
+        <div class="vertical-line concealer"></div>
+      </div>
+      <div class="col-11 link-container">
+        <a href="/explore" class="concealer"
+          ><span class="numeric">01</span>explore</a
+        >
+        <a href="/score" class="concealer"
+          ><span class="numeric">02</span>sign-in</a
+        >
+        <a href="/sign-in" class="concealer"
+          ><span class="numeric">03</span>score</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="discore-moon">
+    <img src="images/discoreLogo.png" alt="discore logo" />
+  </div>
+  <div class="wave">
+    <img src="images/soundwave_composite.png" alt="sound wave" />
+  </div>
+</div>
+<%- include('partials/footer.ejs'); -%>
