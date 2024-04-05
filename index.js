@@ -217,7 +217,10 @@ app.get("/review", async (req,res)=>{
 
 app.get("/my-discore", (req, res) => {
     if (req.isAuthenticated() === true) {
-        res.render("myDiscore.ejs");
+        console.log("This is the user data", req.user);
+        res.render("myDiscore.ejs", {
+            userName: req.user.user_name,
+        });
     } else {
         res.redirect("/sign-in");
     }
@@ -233,6 +236,15 @@ app.get("/score", (req,res)=>{
 
 app.get("/sign-in", (req,res)=>{
     res.render("signIn.ejs");
+});
+
+// Sign out route
+
+app.get("/sign-out", (req,res) => {
+    req.logout( (err) =>{
+        if (err) console.log(err);
+        res.redirect("/");
+    });
 });
 
 // Log in with Google route

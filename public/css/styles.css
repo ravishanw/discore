@@ -394,7 +394,7 @@ button {
 
 /* Sign in route */
 
-.google-icon {
+.google-icon, .sign-out-icon {
     margin: auto 10px;
 }
 
