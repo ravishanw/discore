@@ -1,6 +1,9 @@
 h2 {
     font-size: 1.2rem;
 }
+a {
+    text-decoration: none;
+}
 body {
     background-color: #0F0F0F;
     box-sizing: border-box;
@@ -387,6 +390,12 @@ button {
 .select-btn {
     margin-bottom: 10px;
     width: 100%;
+}
+
+/* Sign in route */
+
+.google-icon {
+    margin: auto 10px;
 }
 
 /* Animation classes */

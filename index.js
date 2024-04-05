@@ -3,6 +3,9 @@ import bodyParser from "body-parser";
 import pg from "pg";
 import axios from "axios";
 import 'dotenv/config';
+import session from "express-session";
+import passport from "passport";
+import GoogleStrategy from "passport-google-oauth20";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,6 +13,23 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.set('view engine','ejs');
+
+// Session initialization
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1000 * 60 * 60,
+    }
+}));
+
+// Passport initialization & config
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // Global var
 
@@ -193,6 +213,16 @@ app.get("/review", async (req,res)=>{
     }
 });
 
+// My Discore route
+
+app.get("/my-discore", (req, res) => {
+    if (req.isAuthenticated() === true) {
+        res.render("myDiscore.ejs");
+    } else {
+        res.redirect("/sign-in");
+    }
+});
+
 // Score route
 
 app.get("/score", (req,res)=>{
@@ -202,8 +232,52 @@ app.get("/score", (req,res)=>{
 // Sign in route
 
 app.get("/sign-in", (req,res)=>{
-    res.render("soon.ejs");
+    res.render("signIn.ejs");
 });
+
+// Log in with Google route
+
+app.get("/log-in/google", passport.authenticate("google", {
+    scope: ["profile", "email"],
+}));
+
+app.get("/auth/google", passport.authenticate("google", {
+    successRedirect: "/my-discore",
+    failureRedirect: "/sign-in",
+}));
+
+// Google strategy
+
+passport.use("google", new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google"
+}, async (accessToken, refreshToken, profile, cb) => {
+    console.log(profile);
+    try {
+        const result = await db.query("SELECT * FROM users WHERE email = $1", [profile._json.email]);
+        if (result.rows.length === 0) {
+            const newUser = await db.query("INSERT INTO users (user_name, email) VALUES ($1, $2)", [profile._json.name, profile_json.email]);
+            cb(null, newUser.rows[0]);
+        } else {
+            cb(null, result.rows[0]);
+        }
+    } catch (err) {
+        cb(err);
+    }
+}
+));
+
+// Serialize/deserialize user
+
+passport.serializeUser((user, cb) => {
+    cb(null, user);
+});
+passport.deserializeUser((user, cb) => {
+    cb(null, user);
+});
+
+// App listen port
 
 app.listen(port, ()=>{
     console.log(`Server started on port ${port}`);
