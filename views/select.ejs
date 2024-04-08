@@ -20,7 +20,23 @@
     <div class="explore-divider"></div>
     <div class="dial-pad">
       <div class="select-window">
-        <% if (selectItems[0].hasOwnProperty('artist_name')){ %>
+        <% if (selectItems[0].hasOwnProperty('artist_name') &&
+        selectItems[0].hasOwnProperty('album_name')){ %>
+        <div><h2>Select review</h2></div>
+        <form action="/view-my-review" method="POST">
+          <% selectItems.forEach((item)=>{ %>
+          <button
+            class="neon-key select-btn"
+            type="submit"
+            name="reviewSelect"
+            value="<%=item.id%>"
+          >
+            <%=item.artist_name%> / <%=item.album_name%>
+          </button>
+          <% }) %>
+        </form>
+
+        <% } else if (selectItems[0].hasOwnProperty('artist_name')){ %>
         <div><h2>Select artist</h2></div>
         <form action="/artist" method="POST">
           <% selectItems.forEach((item)=>{ %>

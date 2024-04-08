@@ -33,6 +33,7 @@ app.use(passport.session());
 
 // Global var
 
+let loggedUserId = "";
 let albumId = "";
 let albumDetails = {
     detailsArtistName: "",
@@ -185,7 +186,7 @@ app.post("/album", async (req,res)=>{
         }
         reviewArray = reviewResult.rows;
         console.log(reviewId);
-        res.redirect("review");
+        res.redirect("/review");
     } catch(error) {
         console.error("failed query review table", error.message);
     }
@@ -223,6 +224,21 @@ app.get("/my-discore", (req, res) => {
         });
     } else {
         res.redirect("/sign-in");
+    }
+});
+
+// My reviews route
+
+app.get("/my-reviews", async (req,res) => {
+    try {
+        loggedUserId = req.user.id;
+        const myResult = await db.query("SELECT review.id, review.artist_id, review.album_id, review.user_id, artist_name, album_name FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE users.id = $1 ORDER BY artist_name", [loggedUserId]);
+        selectArray = myResult.rows;
+        res.render("select.ejs", {
+            selectItems: selectArray,
+        });
+    } catch (error) {
+        console.error("Failed to make discore database query for my reviews", error.message);
     }
 });
 
