@@ -202,6 +202,7 @@ app.get("/review", async (req,res)=>{
                         "Accept": "application/json"
                     }
                 });
+        console.log("req user =", req.user);
         res.render("review.ejs",{
             albumArt: mbResult.data.images[0].image,
             artistName: albumDetails.detailsArtistName,
@@ -234,11 +235,32 @@ app.get("/my-reviews", async (req,res) => {
         loggedUserId = req.user.id;
         const myResult = await db.query("SELECT review.id, review.artist_id, review.album_id, review.user_id, artist_name, album_name FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE users.id = $1 ORDER BY artist_name", [loggedUserId]);
         selectArray = myResult.rows;
+        console.log(selectArray);
         res.render("select.ejs", {
             selectItems: selectArray,
         });
     } catch (error) {
         console.error("Failed to make discore database query for my reviews", error.message);
+    }
+});
+
+// View my review route
+
+app.post("/view-my-review", async (req,res) => {
+    try {
+        const selectReviewId = req.body.reviewSelect;
+        const myReviewResult = await db.query("SELECT * FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE review.id = $1", [selectReviewId]);
+        console.log(myReviewResult.rows);
+        mbId = myReviewResult.rows[0].mb_rgid;
+        albumDetails = {
+            detailsArtistName: myReviewResult.rows[0].artist_name,
+            detailsAlbumName: myReviewResult.rows[0].album_name,
+            detailsAlbumYear: myReviewResult.rows[0].album_year
+        }
+        reviewArray = myReviewResult.rows;
+        res.redirect("/review");
+    } catch (error) {
+        console.error("Failed to query data for view my review", error.message);
     }
 });
 
