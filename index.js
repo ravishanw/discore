@@ -67,7 +67,6 @@ app.get("/", (req,res)=>{
 
 app.get("/explore", (req,res)=>{
     res.render("explore.ejs");
-    console.log(loggedUserId);
 });
 
 app.post("/explore", async (req,res)=>{
@@ -160,7 +159,6 @@ app.post("/artist", async (req,res)=>{
     try {
         const albumResult = await db.query("SELECT id, album_name FROM album WHERE artist_id = $1",[artistId]);
         selectArray = albumResult.rows;
-        console.log(selectArray);
         res.render("select.ejs",{
             selectItems:selectArray
         });
@@ -173,7 +171,7 @@ app.post("/artist", async (req,res)=>{
 
 app.post("/album", async (req,res)=>{
     albumId = req.body.albumSelect;
-    console.log(albumId);
+    console.log("albumId = ", albumId);
     try {
         const reviewResult = await db.query("SELECT * FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE review.album_id = $1",[albumId]);
         reviewResult.rows.forEach((el)=>{
@@ -186,7 +184,7 @@ app.post("/album", async (req,res)=>{
             detailsAlbumYear: reviewResult.rows[0].album_year
         }
         reviewArray = reviewResult.rows;
-        console.log(reviewId);
+        console.log("reviewId = ", reviewId);
         res.redirect("/review");
     } catch(error) {
         console.error("failed query review table", error.message);
@@ -249,7 +247,8 @@ app.get("/my-reviews", async (req,res) => {
 app.post("/view-my-review", async (req,res) => {
     try {
         const selectReviewId = req.body.reviewSelect;
-        const myReviewResult = await db.query("SELECT * FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE review.id = $1", [selectReviewId]);
+        console.log("selectReviewId = ", selectReviewId);
+        const myReviewResult = await db.query("SELECT review.id, review.review_title, review.review_text, review.rating, artist_name, album_name, mb_rgid, album_year FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE review.id = $1", [selectReviewId]);
         mbId = myReviewResult.rows[0].mb_rgid;
         albumDetails = {
             detailsArtistName: myReviewResult.rows[0].artist_name,
@@ -267,7 +266,8 @@ app.post("/view-my-review", async (req,res) => {
 
 app.post("/edit-my-review", (req,res) => {
     if (typeof loggedUserId !== undefined) {
-        res.send("edit my review route wip");
+        console.log("review array = ", reviewArray);
+        res.render("editMyReview.ejs");
     } else {
         res.redirect("/sign-in");
     }
@@ -313,7 +313,6 @@ passport.use("google", new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/google"
 }, async (accessToken, refreshToken, profile, cb) => {
-    console.log(profile);
     try {
         const result = await db.query("SELECT * FROM users WHERE email = $1", [profile._json.email]);
         if (result.rows.length === 0) {
