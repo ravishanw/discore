@@ -33,7 +33,7 @@ app.use(passport.session());
 
 // Global var
 
-let loggedUserId = "";
+let loggedUserId;
 let albumId = "";
 let albumDetails = {
     detailsArtistName: "",
@@ -67,6 +67,7 @@ app.get("/", (req,res)=>{
 
 app.get("/explore", (req,res)=>{
     res.render("explore.ejs");
+    console.log(loggedUserId);
 });
 
 app.post("/explore", async (req,res)=>{
@@ -202,13 +203,13 @@ app.get("/review", async (req,res)=>{
                         "Accept": "application/json"
                     }
                 });
-        console.log("req user =", req.user);
         res.render("review.ejs",{
             albumArt: mbResult.data.images[0].image,
             artistName: albumDetails.detailsArtistName,
             albumName: albumDetails.detailsAlbumName,
             yearNumber: albumDetails.detailsAlbumYear,
-            textArray: reviewArray
+            textArray: reviewArray,
+            loggedUserData: loggedUserId
         });
     } catch(error) {
         console.error("Failed to make discore database query", error.message);
@@ -235,7 +236,6 @@ app.get("/my-reviews", async (req,res) => {
         loggedUserId = req.user.id;
         const myResult = await db.query("SELECT review.id, review.artist_id, review.album_id, review.user_id, artist_name, album_name FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE users.id = $1 ORDER BY artist_name", [loggedUserId]);
         selectArray = myResult.rows;
-        console.log(selectArray);
         res.render("select.ejs", {
             selectItems: selectArray,
         });
@@ -250,7 +250,6 @@ app.post("/view-my-review", async (req,res) => {
     try {
         const selectReviewId = req.body.reviewSelect;
         const myReviewResult = await db.query("SELECT * FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE review.id = $1", [selectReviewId]);
-        console.log(myReviewResult.rows);
         mbId = myReviewResult.rows[0].mb_rgid;
         albumDetails = {
             detailsArtistName: myReviewResult.rows[0].artist_name,
@@ -261,6 +260,16 @@ app.post("/view-my-review", async (req,res) => {
         res.redirect("/review");
     } catch (error) {
         console.error("Failed to query data for view my review", error.message);
+    }
+});
+
+// Edit my review route
+
+app.post("/edit-my-review", (req,res) => {
+    if (typeof loggedUserId !== undefined) {
+        res.send("edit my review route wip");
+    } else {
+        res.redirect("/sign-in");
     }
 });
 
@@ -279,6 +288,7 @@ app.get("/sign-in", (req,res)=>{
 // Sign out route
 
 app.get("/sign-out", (req,res) => {
+    loggedUserId;
     req.logout( (err) =>{
         if (err) console.log(err);
         res.redirect("/");

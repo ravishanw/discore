@@ -237,6 +237,16 @@ footer p {
 
 /* Review route */
 
+.edit-delete-container {
+    display: flex;
+    margin-bottom: 10px;
+}
+.edit-btn {
+    margin-right: 10px;
+}
+.edit-btn:hover {
+    color: #eeeeee;
+}
 .review-row {
     align-items: center;
     height:100vh;

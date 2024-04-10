@@ -5,6 +5,28 @@
     <img class="cyber-grid" src="images/cyber_grid.png" alt="neon grid" />
   </div>
   <div class="col-md-6 review-window">
+    <div class="edit-delete-container">
+      <% if (typeof loggedUserData !== "undefined") { %>
+      <form method="POST">
+        <button
+          type="submit"
+          value="edit-review"
+          formaction="/edit-my-review"
+          class="edit-btn"
+        >
+          <i class="fa-regular fa-pen-to-square"></i>
+        </button>
+        <button
+          type="submit"
+          value="delete-review"
+          formaction="/delete-my-review"
+          class="edit-btn"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </form>
+      <% } %>
+    </div>
     <h2 class="h-artist">
       Artist: <span class="body-text"><%= artistName %></span>
     </h2>
