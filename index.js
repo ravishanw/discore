@@ -267,7 +267,12 @@ app.post("/view-my-review", async (req,res) => {
 app.post("/edit-my-review", (req,res) => {
     if (typeof loggedUserId !== undefined) {
         console.log("review array = ", reviewArray);
-        res.render("editMyReview.ejs");
+        res.render("editMyReview.ejs", {
+            artistName: reviewArray[0].artist_name,
+            albumName: reviewArray[0].album_name,
+            yearNumber: reviewArray[0].album_year,
+            reviewText: reviewArray[0].review_text
+        });
     } else {
         res.redirect("/sign-in");
     }

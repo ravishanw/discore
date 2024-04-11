@@ -2,12 +2,27 @@
 <div class="row explore-row mx-0">
   <div class="col-md-6 branding-window px-0">
     <div class="h-discore-container">
-      <img
-        src="images/discoreLogo.png"
-        alt="discore logo"
-        class="discore-titan"
-      />
-      <h1 class="h-titan">Discore</h1>
+      <h2>You are currently editing</h2>
+      <div class="review-divider"></div>
+      <div class="editing-album-container">
+        <img
+          src="images/discoreLogo.png"
+          alt="discore logo"
+          class="discore-score"
+        />
+        <!-- Receive current review and map data -->
+        <div class="edit-album-details-container">
+          <h2 class="h-artist">
+            Artist: <span class="body-text"><%= artistName %></span>
+          </h2>
+          <h2 class="h-album">
+            Album: <span class="body-text"><%= albumName %></span>
+          </h2>
+          <h2 class="h-year">
+            Year: <span class="body-text"><%= yearNumber %></span>
+          </h2>
+        </div>
+      </div>
     </div>
     <div class="wave-mask"></div>
     <img
@@ -20,7 +35,16 @@
   <div class="col-md-6 dial-pad-window px-0">
     <div class="explore-divider"></div>
     <div class="dial-pad">
-      <h2>Sign in to Discore</h2>
+      <form action="/submit-my-review" method="POST">
+        <label for="your-score"><h2>Your score</h2></label>
+        <input type="text" name="user-score" id="your-score" />
+        <label for="review-title"><h2>Review title</h2></label>
+        <input type="text" name="user-title" id="review-title" />
+        <label for="review-text"><h2>Edit your review</h2></label>
+        <textarea name="user-review-text" id="review-text" cols="30" rows="10">
+<%= reviewText %></textarea
+        >
+      </form>
 
       <a class="neon-key select-btn" href="#">
         <i class="fa-brands fa-google button-icon"></i>

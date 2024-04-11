@@ -408,6 +408,26 @@ button {
     margin: auto 10px;
 }
 
+/* Edit my review route */
+
+.editing-album-container {
+    display: flex;
+    flex-direction: row;
+}
+.discore-score {
+    aspect-ratio: 1/1;
+    height: 100px;
+    margin-right: 50px;
+}
+.edit-album-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.edit-album-details-container h2 {
+    margin: 0;
+}
+
 /* Animation classes */
 
 
