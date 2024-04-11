@@ -265,16 +265,38 @@ app.post("/view-my-review", async (req,res) => {
 // Edit my review route
 
 app.post("/edit-my-review", (req,res) => {
-    if (typeof loggedUserId !== undefined) {
-        console.log("review array = ", reviewArray);
-        res.render("editMyReview.ejs", {
-            artistName: reviewArray[0].artist_name,
-            albumName: reviewArray[0].album_name,
-            yearNumber: reviewArray[0].album_year,
-            reviewText: reviewArray[0].review_text
-        });
-    } else {
-        res.redirect("/sign-in");
+    try {
+        if (typeof loggedUserId !== undefined && reviewArray.length === 1) {
+            console.log("review array = ", reviewArray);
+            res.render("editMyReview.ejs", {
+                artistName: reviewArray[0].artist_name,
+                albumName: reviewArray[0].album_name,
+                yearNumber: reviewArray[0].album_year,
+                rating: reviewArray[0].rating,
+                reviewTitle: reviewArray[0].review_title,
+                reviewText: reviewArray[0].review_text
+            });
+        } else {
+            res.redirect("/sign-in");
+        }
+    } catch (error) {
+        console.error("Failed to post edit my review", error.message);
+    }
+});
+
+// Submit my review route
+
+app.post("/submit-my-review", async (req,res) => {
+    try {
+        const updatedReview = await db.query("UPDATE review SET rating = $1, review_title = $2, review_text = $3 WHERE id = $4 RETURNING rating AS new_rating, review_title AS new_review_title, review_text AS new_review_text", 
+        [req.body.userScore, req.body.userTitle, req.body.userReviewText, reviewArray[0].id]);
+        console.log(updatedReview.rows);
+        reviewArray[0].rating = updatedReview.rows[0].new_rating;
+        reviewArray[0].review_title = updatedReview.rows[0].new_review_title;
+        reviewArray[0].review_text = updatedReview.rows[0].new_review_text;
+        res.redirect("/review");
+    } catch (error) {
+        console.error("Failed to post submit my review", error.message);
     }
 });
 

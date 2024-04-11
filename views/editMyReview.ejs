@@ -35,21 +35,32 @@
   <div class="col-md-6 dial-pad-window px-0">
     <div class="explore-divider"></div>
     <div class="dial-pad">
-      <form action="/submit-my-review" method="POST">
-        <label for="your-score"><h2>Your score</h2></label>
-        <input type="text" name="user-score" id="your-score" />
-        <label for="review-title"><h2>Review title</h2></label>
-        <input type="text" name="user-title" id="review-title" />
-        <label for="review-text"><h2>Edit your review</h2></label>
-        <textarea name="user-review-text" id="review-text" cols="30" rows="10">
+      <form
+        action="/submit-my-review"
+        method="POST"
+        class="submit-my-review-form"
+      >
+        <label for="your-score"><h2>Your score:</h2></label>
+        <input
+          type="text"
+          name="userScore"
+          id="your-score"
+          value="<%= rating %>"
+        />
+        <label for="review-title"><h2>Review title:</h2></label>
+        <input
+          type="text"
+          name="userTitle"
+          id="review-title"
+          value="<%= reviewTitle %>"
+        />
+        <label for="review-text"><h2>Edit your review:</h2></label>
+        <textarea name="userReviewText" id="review-text" cols="30" rows="10">
 <%= reviewText %></textarea
         >
+        <button class="neon-key select-btn" type="submit">Submit</button>
+        <a href="/review" class="neon-key select-btn">Cancel</a>
       </form>
-
-      <a class="neon-key select-btn" href="#">
-        <i class="fa-brands fa-google button-icon"></i>
-        Placeholder - edit review section
-      </a>
     </div>
   </div>
 </div>

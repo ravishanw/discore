@@ -427,6 +427,17 @@ button {
 .edit-album-details-container h2 {
     margin: 0;
 }
+.submit-my-review-form {
+    display: flex;
+    flex-direction: column;
+}
+.submit-my-review-form input, .submit-my-review-form textarea  {
+    background-color: #0F0F0F;
+    border-radius: 5px;
+    color:#eeeeee;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 20px;
+}
 
 /* Animation classes */
 
