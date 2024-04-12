@@ -35,17 +35,20 @@
   <div class="col-md-6 dial-pad-window px-0">
     <div class="explore-divider"></div>
     <div class="dial-pad">
+      <!-- Update my review form -->
       <form
-        action="/submit-my-review"
+        action="/update-my-review"
         method="POST"
         class="submit-my-review-form"
+        autocomplete="off"
       >
-        <label for="your-score"><h2>Your score:</h2></label>
+        <label for="your-score"><h2>Your score (%):</h2></label>
         <input
           type="text"
           name="userScore"
           id="your-score"
           value="<%= rating %>"
+          autofocus
         />
         <label for="review-title"><h2>Review title:</h2></label>
         <input

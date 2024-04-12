@@ -284,9 +284,9 @@ app.post("/edit-my-review", (req,res) => {
     }
 });
 
-// Submit my review route
+// Update my review route
 
-app.post("/submit-my-review", async (req,res) => {
+app.post("/update-my-review", async (req,res) => {
     try {
         const updatedReview = await db.query("UPDATE review SET rating = $1, review_title = $2, review_text = $3 WHERE id = $4 RETURNING rating AS new_rating, review_title AS new_review_title, review_text AS new_review_text", 
         [req.body.userScore, req.body.userTitle, req.body.userReviewText, reviewArray[0].id]);
@@ -303,7 +303,19 @@ app.post("/submit-my-review", async (req,res) => {
 // Score route
 
 app.get("/score", (req,res)=>{
-    res.render("soon.ejs");
+    res.render("score.ejs");
+});
+
+// Search artist
+
+app.post("/search-artist", (req,res) => {
+    try {
+        console.log(req.body.searchArtistName);
+        res.send("search artist wip");
+    } catch (error) {
+        console.error("Failed to query musicbrainz for artist name", error.message);
+    }
+    
 });
 
 // Sign in route

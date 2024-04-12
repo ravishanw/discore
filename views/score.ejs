@@ -1,0 +1,40 @@
+<%- include('partials/header.ejs'); -%>
+<div class="row explore-row mx-0">
+  <div class="col-md-6 branding-window px-0">
+    <div class="h-discore-container">
+      <h2>Score</h2>
+      <div class="review-divider"></div>
+      <ul class="score-steps">
+        <li><span class="score-num">01</span>Search artist</li>
+        <li><span class="score-num">02</span>Confirm artist</li>
+        <li><span class="score-num">03</span>Select album</li>
+        <li><span class="score-num">04</span>Score</li>
+      </ul>
+    </div>
+    <div class="wave-mask"></div>
+    <img
+      class="wave-titan"
+      src="images/soundwave_1_cropped.png"
+      alt="sound wave"
+    />
+    <div class="collapsed-line"></div>
+  </div>
+  <div class="col-md-6 dial-pad-window px-0">
+    <div class="explore-divider"></div>
+    <div class="dial-pad">
+      <!-- Search artist/album/score form -->
+      <form action="/search-artist" method="POST" class="score-form">
+        <label for="search-artist"><h2>Type in artist name:</h2></label>
+        <input
+          type="text"
+          name="searchArtistName"
+          id="search-artist"
+          autofocus
+        />
+        <button class="neon-key select-btn" type="submit">Search</button>
+        <a href="/explore" class="neon-key select-btn">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer.ejs'); -%>
