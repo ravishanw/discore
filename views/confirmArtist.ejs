@@ -1,0 +1,50 @@
+<%- include('partials/header.ejs'); -%>
+<div class="row explore-row mx-0">
+  <div class="col-md-6 branding-window px-0">
+    <div class="h-discore-container">
+      <h2>Score</h2>
+      <div class="review-divider"></div>
+      <ul class="score-steps">
+        <li><span class="score-num">01</span>Search artist</li>
+        <li><span class="score-num">02</span>Confirm artist</li>
+        <li><span class="score-num">03</span>Select album</li>
+        <li><span class="score-num">04</span>Score</li>
+      </ul>
+    </div>
+    <div class="wave-mask"></div>
+    <img
+      class="wave-titan"
+      src="images/soundwave_1_cropped.png"
+      alt="sound wave"
+    />
+    <div class="collapsed-line"></div>
+  </div>
+  <div class="col-md-6 dial-pad-window px-0">
+    <div class="explore-divider"></div>
+    <div class="dial-pad">
+      <!-- Confirm artist from mb API query form -->
+      <form action="/confirm-artist" method="POST" class="confirm-artist-form">
+        <h2>Confirm artist from selection</h2>
+        <% confirmArtistArr.forEach((item)=>{ %>
+        <button
+          class="neon-key confirm-artist-btn"
+          name="mbArtistId"
+          value="<%= item.id %>"
+        >
+          <h2><%= item.name %></h2>
+          <% if (item.area) { %>
+          <p class="body-text">Country: <%= item.area.name %></p>
+          <% } %>
+          <div class="tags-container">
+            <% if (item.tags) { %> <% item.tags.forEach((tag)=>{ %>
+            <p class="artist-tag-pill"><%= tag.name %></p>
+            <% }); %> <% } %>
+          </div>
+        </button>
+
+        <% }); %>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer.ejs'); -%>

@@ -460,6 +460,20 @@ button {
     flex-direction: column;
 }
 
+/* Confirm artist route */
+
+.confirm-artist-btn {
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.tags-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
 /* Animation classes */
 
 

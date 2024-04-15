@@ -1,4 +1,4 @@
-import express from "express";
+import express, { application } from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import axios from "axios";
@@ -44,6 +44,7 @@ let reviewArray = [];
 let reviewId = [];
 let selectArray = [];
 let mbId = "";
+let mbSearchArtistArr = [];
 
 // Database connection
 
@@ -308,14 +309,30 @@ app.get("/score", (req,res)=>{
 
 // Search artist
 
-app.post("/search-artist", (req,res) => {
+app.post("/search-artist", async (req,res) => {
     try {
-        console.log(req.body.searchArtistName);
-        res.send("search artist wip");
+        const artistString = req.body.searchArtistName;
+        const mbArtistResult = await axios.get(`https://musicbrainz.org/ws/2/artist?query=${artistString}&limit=5`, {
+            headers: {
+                "User-Agent": process.env.API_USER_AGENT,
+                "Accept": "application/json",
+            }
+        });
+        mbSearchArtistArr = mbArtistResult.data.artists;
+        console.log(mbSearchArtistArr);
+        res.redirect("/confirm-artist");
     } catch (error) {
         console.error("Failed to query musicbrainz for artist name", error.message);
     }
     
+});
+
+// Confirm artist route
+
+app.get("/confirm-artist", (req,res) => {
+    res.render("confirmArtist.ejs", {
+        confirmArtistArr: mbSearchArtistArr,
+    });
 });
 
 // Sign in route
