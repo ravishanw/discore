@@ -288,6 +288,7 @@ footer p {
     color:#eeeeee;
     font-family: 'IBM Plex Mono', monospace;
     font-weight: 100;
+    font-size: 1rem;
 }
 .review-divider {
     background: linear-gradient(135deg,#008170 60%,#eeeeee);
@@ -410,6 +411,12 @@ button {
     margin-bottom: 10px;
     width: 100%;
 }
+.select-window {
+    max-height: 90%;
+    margin-bottom: 20px;
+    overflow: scroll;
+    padding: 15px;
+}
 
 /* Sign in route */
 
@@ -472,6 +479,15 @@ button {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
+}
+.artist-tag-pill {
+    background-color: #008170;
+    border-radius: 20px;
+    margin-left: 10px;
+    padding: 0 8px;
+}
+.confirm-artist-btn:hover .artist-tag-pill {
+    background-color: #0F0F0F;
 }
 
 /* Animation classes */
@@ -669,11 +685,11 @@ button {
         font-size: 1.2rem;
         padding-left: 15px;
     }
-    .select-window {
+    /* .select-window {
         max-height: 90%;
         overflow: scroll;
         padding: 15px;
-    }
+    } */
     .review-row {
         padding: 6% 0;
     }
@@ -793,11 +809,11 @@ button {
         width: 100px;
     }
     /* select view */
-    .select-window {
+    /* .select-window {
         max-height: 90%;
         overflow: scroll;
         padding: 15px;
-    }
+    } */
     .select-btn {
         justify-content: center;
     }

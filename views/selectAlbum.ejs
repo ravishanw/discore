@@ -24,30 +24,22 @@
     <div class="dial-pad">
       <div class="select-window">
         <!-- Confirm artist from mb API query form -->
-        <form
-          action="/confirm-artist"
-          method="POST"
-          class="confirm-artist-form"
-        >
-          <h2>Confirm artist from selection</h2>
-          <% confirmArtistArr.forEach((item)=>{ %>
+        <form action="/select-album" method="POST" class="select-album-form">
+          <h2>Choose album from selection</h2>
+          <% selectAlbumArr.forEach((item)=>{ %>
           <button
             class="neon-key confirm-artist-btn"
-            name="mbArtistId"
+            name="mbAlbumId"
             value="<%= item.id %>"
           >
-            <h2><%= item.name %></h2>
-            <% if (item.area) { %>
-            <p class="body-text">Country: <%= item.area.name %></p>
-            <% } %>
-            <div class="tags-container">
-              <p class="body-text">Tags:</p>
-              <% if (item.tags) { %> <% item.tags.forEach((tag)=>{ %>
-              <p class="artist-tag-pill body-text"><%= tag.name %></p>
-              <% }); %> <% } %>
-            </div>
+            <h2><%= item.title %></h2>
+            <p class="body-text">Year: <%= item["first-release-date"] %></p>
+            <p class="body-text">
+              Type: <%= item["primary-type"] %> <% if
+              (item["secondary-types"].length !== 0){ %> / <%=
+              item["secondary-types"] %> <% } %>
+            </p>
           </button>
-
           <% }); %>
         </form>
       </div>

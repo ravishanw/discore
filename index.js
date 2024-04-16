@@ -45,6 +45,7 @@ let reviewId = [];
 let selectArray = [];
 let mbId = "";
 let mbSearchArtistArr = [];
+let mbSearchAlbumArr = [];
 
 // Database connection
 
@@ -304,7 +305,7 @@ app.post("/update-my-review", async (req,res) => {
 // Score route
 
 app.get("/score", (req,res)=>{
-    res.render("score.ejs");
+    res.render("searchArtist.ejs");
 });
 
 // Search artist
@@ -333,6 +334,31 @@ app.get("/confirm-artist", (req,res) => {
     res.render("confirmArtist.ejs", {
         confirmArtistArr: mbSearchArtistArr,
     });
+});
+app.post("/confirm-artist", async (req,res) => {
+    try {
+        const mbArtistId = req.body.mbArtistId;
+        console.log("mb artist id = ", mbArtistId);
+        const mbAlbumResult = await axios.get(`https://musicbrainz.org/ws/2/release-group?artist=${mbArtistId}&type=album|ep`);
+        mbSearchAlbumArr = mbAlbumResult.data["release-groups"];
+        res.redirect("/select-album");
+    } catch (error) {
+        console.error("Failed to query musicbrainz for albums | eps", error.message);
+    }
+    
+});
+
+// Select album route
+
+app.get("/select-album", (req,res) => {
+    res.render("selectAlbum.ejs", {
+        selectAlbumArr: mbSearchAlbumArr,
+    });
+});
+app.post("/select-album", (req,res) => {
+    console.log("selected albumId = ", req.body.mbAlbumId);
+    // Filter searchAlbumArr by albumId
+    res.render("submitMyReview.ejs");
 });
 
 // Sign in route
