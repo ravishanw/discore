@@ -221,6 +221,7 @@ app.get("/review", async (req,res)=>{
 app.get("/my-discore", (req, res) => {
     if (req.isAuthenticated() === true) {
         console.log("This is the user data", req.user);
+        // if user exists no action, else insert user data into user table
         res.render("myDiscore.ejs", {
             userName: req.user.user_name,
         });
@@ -305,11 +306,18 @@ app.post("/update-my-review", async (req,res) => {
 // Score route
 
 app.get("/score", (req,res)=>{
-    res.render("searchArtist.ejs");
+    if (req.isAuthenticated() === true) {
+        res.redirect("/search-artist");
+    } else {
+        res.redirect("/sign-in");
+    }
 });
 
 // Search artist
 
+app.get("/search-artist", (req,res) => {
+    res.render("searchArtist.ejs");
+});
 app.post("/search-artist", async (req,res) => {
     try {
         const artistString = req.body.searchArtistName;
@@ -338,7 +346,10 @@ app.get("/confirm-artist", (req,res) => {
 app.post("/confirm-artist", async (req,res) => {
     try {
         const mbArtistId = req.body.mbArtistId;
+        const thisArtistName = mbSearchArtistArr.filter((item) => item.id === mbArtistId);
         console.log("mb artist id = ", mbArtistId);
+        albumDetails.detailsArtistName = thisArtistName[0].name;
+        console.log("albumDetails.artistName = ", albumDetails.detailsArtistName);
         const mbAlbumResult = await axios.get(`https://musicbrainz.org/ws/2/release-group?artist=${mbArtistId}&type=album|ep`);
         mbSearchAlbumArr = mbAlbumResult.data["release-groups"];
         res.redirect("/select-album");
@@ -351,14 +362,23 @@ app.post("/confirm-artist", async (req,res) => {
 // Select album route
 
 app.get("/select-album", (req,res) => {
+    console.log(mbSearchAlbumArr);
     res.render("selectAlbum.ejs", {
         selectAlbumArr: mbSearchAlbumArr,
     });
 });
 app.post("/select-album", (req,res) => {
-    console.log("selected albumId = ", req.body.mbAlbumId);
+    console.log(`selected albumId =  ${req.body.mbAlbumId}`);
     // Filter searchAlbumArr by albumId
-    res.render("submitMyReview.ejs");
+    const thisAlbum = mbSearchAlbumArr.filter((item) => item.id === req.body.mbAlbumId);
+    albumDetails.detailsAlbumName = thisAlbum[0].title;
+    albumDetails.detailsAlbumYear = new Date(thisAlbum[0]["first-release-date"]).getFullYear();
+    console.log("this album = ", thisAlbum);
+    res.render("submitMyReview.ejs", {
+        artistName: albumDetails.detailsArtistName,
+        albumName: albumDetails.detailsAlbumName,
+        yearNumber: albumDetails.detailsAlbumYear
+    });
 });
 
 // Sign in route
