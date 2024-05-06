@@ -221,7 +221,7 @@ app.get("/review", async (req,res)=>{
 app.get("/my-discore", (req, res) => {
     if (req.isAuthenticated() === true) {
         console.log("This is the user data", req.user);
-        // if user exists no action, else insert user data into user table
+        loggedUserId = req.user.id;
         res.render("myDiscore.ejs", {
             userName: req.user.user_name,
         });
@@ -234,7 +234,6 @@ app.get("/my-discore", (req, res) => {
 
 app.get("/my-reviews", async (req,res) => {
     try {
-        loggedUserId = req.user.id;
         const myResult = await db.query("SELECT review.id, review.artist_id, review.album_id, review.user_id, artist_name, album_name FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE users.id = $1 ORDER BY artist_name", [loggedUserId]);
         selectArray = myResult.rows;
         res.render("select.ejs", {
@@ -373,6 +372,7 @@ app.post("/select-album", (req,res) => {
     const thisAlbum = mbSearchAlbumArr.filter((item) => item.id === req.body.mbAlbumId);
     albumDetails.detailsAlbumName = thisAlbum[0].title;
     albumDetails.detailsAlbumYear = new Date(thisAlbum[0]["first-release-date"]).getFullYear();
+    mbId = thisAlbum[0].id;
     console.log("this album = ", thisAlbum);
     res.render("submitMyReview.ejs", {
         artistName: albumDetails.detailsArtistName,
@@ -386,12 +386,19 @@ app.post("/select-album", (req,res) => {
 app.post("/submit-my-review", async (req,res) => {
     try {
         console.log(req.body);
-        // Check if selected artist exists in artist table
+        // Check if selected artist & album exists in artist & album tables
         const artistQuery = await db.query("SELECT * FROM artist WHERE artist_name = $1", [albumDetails.detailsArtistName]);
+        const albumQuery = await db.query("SELECT * FROM album WHERE album_name = $1",[albumDetails.detailsAlbumName]);
+        
         if (artistQuery.rows.length === 0) {
-            const newArtist = await db.query("INSERT INTO artist (artist_name) VALUES ($1)",[albumDetails.detailsArtistName]);
+            const newArtist = await db.query("INSERT INTO artist (artist_name) VALUES ($1) RETURNING *",[albumDetails.detailsArtistName]);
+        } else if (albumQuery.rows.length === 0) {
+            // Artist exists, album does not exist
+            console.log("album does not exist in table", artistQuery.rows);
+            await db.query("INSERT INTO album (album_name, artist_id, mb_rgid, album_year) VALUES ($1, $2, $3, $4)",
+            [albumDetails.detailsAlbumName, artistQuery.rows[0].id, mbId, albumDetails.detailsAlbumYear]);
         } else {
-            console.log("userData", req.user);
+            console.log("both artist and album exist in tables");
         }
         res.send("submit my review post route wip");
     } catch (error) {
