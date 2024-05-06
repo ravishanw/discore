@@ -381,6 +381,24 @@ app.post("/select-album", (req,res) => {
     });
 });
 
+// Submit my review route
+
+app.post("/submit-my-review", async (req,res) => {
+    try {
+        console.log(req.body);
+        // Check if selected artist exists in artist table
+        const artistQuery = await db.query("SELECT * FROM artist WHERE artist_name = $1", [albumDetails.detailsArtistName]);
+        if (artistQuery.rows.length === 0) {
+            const newArtist = await db.query("INSERT INTO artist (artist_name) VALUES ($1)",[albumDetails.detailsArtistName]);
+        } else {
+            console.log("userData", req.user);
+        }
+        res.send("submit my review post route wip");
+    } catch (error) {
+        console.error("Failed to post data to submit my review route", error.message);
+    }
+});
+
 // Sign in route
 
 app.get("/sign-in", (req,res)=>{
