@@ -35,6 +35,22 @@
   <div class="col-md-6 dial-pad-window px-0">
     <div class="explore-divider"></div>
     <div class="dial-pad">
+      <% if (successMessage === true) { %>
+
+      <h2>Success!</h2>
+      <p>Your review has been submitted.</p>
+
+      <% } else if (successMessage === false) { %>
+      <h2>Oops!</h2>
+      <p>You have already submitted a review for this album.</p>
+      <a class="neon-key select-btn" href="/my-reviews">
+        <i class="fa-regular fa-user button-icon"></i>
+        My reviews
+      </a>
+      <a href="/select-album" class="neon-key select-btn"
+        ><i class="fa-solid fa-arrow-left button-icon"></i>Back</a
+      >
+      <% } else { %>
       <!-- Submit my review form -->
       <form
         action="/submit-my-review"
@@ -53,6 +69,7 @@ Type your review here...</textarea
         <button class="neon-key select-btn" type="submit">Submit</button>
         <a href="/select-album" class="neon-key select-btn">Back</a>
       </form>
+      <% } %>
     </div>
   </div>
 </div>

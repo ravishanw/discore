@@ -375,6 +375,7 @@ app.post("/select-album", (req,res) => {
     mbId = thisAlbum[0].id;
     console.log("this album = ", thisAlbum);
     res.render("submitMyReview.ejs", {
+        successMessage: false,
         artistName: albumDetails.detailsArtistName,
         albumName: albumDetails.detailsAlbumName,
         yearNumber: albumDetails.detailsAlbumYear
@@ -383,58 +384,64 @@ app.post("/select-album", (req,res) => {
 
 // Submit my review route
 
-// Insert artist/album/review functions
+// Insert functions for artist, album, review
 
-async function insertArtist() {
-    const newArtist = await db.query("INSERT INTO artist (artist_name) VALUES ($1) RETURNING *",[albumDetails.detailsArtistName]);
-    console.log("newArtist = ", newArtist.rows);
+async function insertArtist(artistName) {
+    const newArtist = await db.query("INSERT INTO artist (artist_name) VALUES ($1) RETURNING *",[artistName]);
     return newArtist;
 }
-
-async function insertAlbum(newArtist) {
+async function insertAlbum(albumName, artistId, mbRgid, albumYear) {
     const newAlbum = await db.query("INSERT INTO album (album_name, artist_id, mb_rgid, album_year) VALUES ($1, $2, $3, $4) RETURNING *",
-    [albumDetails.detailsAlbumName, newArtist.rows[0].id, mbId, albumDetails.detailsAlbumYear]);
-    console.log("newAlbum = ", newAlbum.rows);
+    [albumName, artistId, mbRgid, albumYear]);
     return newAlbum;
 }
-
-async function insertReview(newAlbum) {
+async function insertReview(reviewTitle, reviewText, reviewRating, artistId, albumId, userId) {
     const newReview = await db.query("INSERT INTO review (review_title, review_text, rating, artist_id, album_id, user_id) VALUES ($1, $2, $3, $4, $5, $6)",
-    [req.body.userTitle, req.body.userReviewText, req.body.userScore, newArtist.rows[0].id, newAlbum.rows[0].id, loggedUserId]);
-    console.log("newReview = ", newReview.rows);
+    [reviewTitle, reviewText, reviewRating, artistId, albumId, userId]);
     return newReview;
 }
 
 app.post("/submit-my-review", async (req,res) => {
     try {
         console.log(req.body);
-        // Check if selected artist & album exists in artist & album tables
+        // Check if selected artist, album, review exists in artist, album & review tables
         const artistQuery = await db.query("SELECT * FROM artist WHERE artist_name = $1", [albumDetails.detailsArtistName]);
         const albumQuery = await db.query("SELECT * FROM album WHERE album_name = $1",[albumDetails.detailsAlbumName]);
+        const reviewQuery = await db.query("SELECT * FROM review WHERE user_id = $1 AND artist_id = $2 AND album_id = $3", [loggedUserId, artistQuery.rows[0].id, albumQuery.rows[0].id]);
         
-        if (artistQuery.rows.length === 0) {
+        if (reviewQuery.rows.length > 0) {
+            console.log("duplicate data warning");
+            res.render("submitMyReview.ejs", {
+                successMessage: false,
+                artistName: albumDetails.detailsArtistName,
+                albumName: albumDetails.detailsAlbumName,
+                yearNumber: albumDetails.detailsAlbumYear
+            });
+            return;
+        } else if (artistQuery.rows.length === 0) {
             // Artist does not exist -> ergo insert artist, album & review with id
-
-            insertArtist();
-            if (insertArtist) {
-                insertAlbum(insertArtist);
-            }
-            if (insertAlbum) {
-                insertReview(insertAlbum);
-            }
             
+            const newArtistResult = await insertArtist(albumDetails.detailsArtistName);
+            const newAlbumResult = await insertAlbum(albumDetails.detailsAlbumName, newArtistResult.rows[0].id, mbId, albumDetails.detailsAlbumYear);
+            await insertReview(req.body.userTitle, req.body.userReviewText, req.body.userScore, newArtistResult.rows[0].id, newAlbumResult.rows[0].id, loggedUserId);
 
         } else if (artistQuery.rows.length > 0 && albumQuery.rows.length === 0) {
             // Artist exists, album does not exist -> insert album, review with id
+
+            const newAlbumResult = await insertAlbum(albumDetails.detailsAlbumName, artistQuery.rows[0].id, mbId, albumDetails.detailsAlbumYear);
+            await insertReview(req.body.userTitle, req.body.userReviewText, req.body.userScore, artistQuery.rows[0].id, newAlbumResult.rows[0].id, loggedUserId);
             
-            console.log("album does not exist in table", artistQuery.rows);
-            await db.query("INSERT INTO album (album_name, artist_id, mb_rgid, album_year) VALUES ($1, $2, $3, $4)",
-            [albumDetails.detailsAlbumName, artistQuery.rows[0].id, mbId, albumDetails.detailsAlbumYear]);
         } else if (artistQuery.rows.length > 0 && albumQuery.rows.length > 0) {
             // Artist & album exist -> insert review
-            console.log("both artist and album exist in tables");
+            
+            await insertReview(req.body.userTitle, req.body.userReviewText, req.body.userScore, artistQuery.rows[0].id, albumQuery.rows[0].id, loggedUserId);
         }
-        res.send("submit my review post route wip");
+        res.render("submitMyReview.ejs", {
+            successMessage: true,
+            artistName: albumDetails.detailsArtistName,
+            albumName: albumDetails.detailsAlbumName,
+            yearNumber: albumDetails.detailsAlbumYear
+        });
     } catch (error) {
         console.error("Failed to post data to submit my review route", error.message);
     }
