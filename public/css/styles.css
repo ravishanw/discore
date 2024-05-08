@@ -467,6 +467,12 @@ button {
     flex-direction: column;
 }
 
+/* Search/confirm/score album */
+
+.step-inactive {
+    opacity: 0.3;
+}
+
 /* Confirm artist route */
 
 .confirm-artist-btn {
