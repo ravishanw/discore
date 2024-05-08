@@ -458,9 +458,11 @@ button {
     margin-bottom: 20px;
 }
 .score-num {
-    color:#eeeeee;
     font-size: 2rem;
     margin-right: 20px;
+}
+.score-active {
+    color:#eeeeee;
 }
 .score-form {
     display: flex;
@@ -469,8 +471,8 @@ button {
 
 /* Search/confirm/score album */
 
-.step-inactive {
-    opacity: 0.3;
+.score-inactive {
+    opacity: 0.5;
 }
 
 /* Confirm artist route */
