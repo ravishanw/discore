@@ -204,7 +204,7 @@ app.get("/review", async (req,res)=>{
                     }
                 });
         res.render("review.ejs",{
-            albumArt: mbResult.data.images[0].image,
+            albumArt: mbResult.data.images[0].thumbnails["large"],
             artistName: albumDetails.detailsArtistName,
             albumName: albumDetails.detailsAlbumName,
             yearNumber: albumDetails.detailsAlbumYear,
@@ -301,6 +301,18 @@ app.post("/update-my-review", async (req,res) => {
         console.error("Failed to post submit my review", error.message);
     }
 });
+
+// Delete my review route
+
+app.post("/delete-my-review", (req,res) => {
+    try {
+        console.log("reviewId", reviewId);
+        res.render("soon.ejs");
+    } catch (error) {
+        console.error("Failed to delete record from table", error.message);
+    }
+});
+
 
 // Score route
 
