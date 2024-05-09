@@ -6,7 +6,7 @@
   </div>
   <div class="col-md-6 review-window">
     <div class="edit-delete-container">
-      <% if (typeof loggedUserData !== "undefined") { %>
+      <% if (reqRef === true) { %>
       <form method="POST">
         <button
           type="submit"

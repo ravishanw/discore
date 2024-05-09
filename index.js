@@ -33,7 +33,6 @@ app.use(passport.session());
 
 // Global var
 
-let loggedUserId;
 let albumId = "";
 let albumDetails = {
     detailsArtistName: "",
@@ -203,13 +202,15 @@ app.get("/review", async (req,res)=>{
                         "Accept": "application/json"
                     }
                 });
+        const reqReferer = req.get('referer');
+        console.log(`reqReferer = ${reqReferer.includes("my-review")}`);
         res.render("review.ejs",{
             albumArt: mbResult.data.images[0].thumbnails["large"],
             artistName: albumDetails.detailsArtistName,
             albumName: albumDetails.detailsAlbumName,
             yearNumber: albumDetails.detailsAlbumYear,
             textArray: reviewArray,
-            loggedUserData: loggedUserId
+            reqRef: reqReferer.includes("my-review")
         });
     } catch(error) {
         console.error("Failed to make discore database query", error.message);
@@ -221,7 +222,6 @@ app.get("/review", async (req,res)=>{
 app.get("/my-discore", (req, res) => {
     if (req.isAuthenticated() === true) {
         console.log("This is the user data", req.user);
-        loggedUserId = req.user.id;
         res.render("myDiscore.ejs", {
             userName: req.user.user_name,
         });
@@ -234,7 +234,7 @@ app.get("/my-discore", (req, res) => {
 
 app.get("/my-reviews", async (req,res) => {
     try {
-        const myResult = await db.query("SELECT review.id, review.artist_id, review.album_id, review.user_id, artist_name, album_name FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE users.id = $1 ORDER BY artist_name", [loggedUserId]);
+        const myResult = await db.query("SELECT review.id, review.artist_id, review.album_id, review.user_id, artist_name, album_name FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE users.id = $1 ORDER BY artist_name", [req.user.id]);
         selectArray = myResult.rows;
         res.render("select.ejs", {
             selectItems: selectArray,
@@ -268,7 +268,7 @@ app.post("/view-my-review", async (req,res) => {
 
 app.post("/edit-my-review", (req,res) => {
     try {
-        if (typeof loggedUserId !== undefined && reviewArray.length === 1) {
+        if (typeof req.user.id !== null && reviewArray.length === 1) {
             console.log("review array = ", reviewArray);
             res.render("editMyReview.ejs", {
                 artistName: reviewArray[0].artist_name,
@@ -390,7 +390,7 @@ app.post("/select-album", async (req,res) => {
     // Check if a review exists for selected album/artist by user
 
     const reviewQuery = await db.query("SELECT review.id AS r_id, artist_name, album_name, mb_rgid, user_id AS u_id FROM review JOIN artist ON artist_id = artist.id JOIN album ON album_id = album.id JOIN users ON user_id = users.id WHERE user_id = $1 AND artist_name = $2 AND album_name = $3", 
-    [loggedUserId, albumDetails.detailsArtistName, albumDetails.detailsAlbumName]);
+    [req.user.id, albumDetails.detailsArtistName, albumDetails.detailsAlbumName]);
     console.log("reviewQuery = ", reviewQuery.rows);
 
     if (reviewQuery.rows.length > 0) {
@@ -445,18 +445,18 @@ app.post("/submit-my-review", async (req,res) => {
             console.log("Aritst does not exist - insert artist, album, review");
             const newArtistResult = await insertArtist(albumDetails.detailsArtistName);
             const newAlbumResult = await insertAlbum(albumDetails.detailsAlbumName, newArtistResult.rows[0].id, mbId, albumDetails.detailsAlbumYear);
-            await insertReview(req.body.userTitle, req.body.userReviewText, req.body.userScore, newArtistResult.rows[0].id, newAlbumResult.rows[0].id, loggedUserId);
+            await insertReview(req.body.userTitle, req.body.userReviewText, req.body.userScore, newArtistResult.rows[0].id, newAlbumResult.rows[0].id, req.user.id);
 
         } else if (artistQuery.rows.length > 0 && albumQuery.rows.length === 0) {
             // Artist exists, album does not exist -> insert album, review with id
             console.log("album does not exist, insert album, review");
             const newAlbumResult = await insertAlbum(albumDetails.detailsAlbumName, artistQuery.rows[0].id, mbId, albumDetails.detailsAlbumYear);
-            await insertReview(req.body.userTitle, req.body.userReviewText, req.body.userScore, artistQuery.rows[0].id, newAlbumResult.rows[0].id, loggedUserId);
+            await insertReview(req.body.userTitle, req.body.userReviewText, req.body.userScore, artistQuery.rows[0].id, newAlbumResult.rows[0].id, req.user.id);
             
         } else if (artistQuery.rows.length > 0 && albumQuery.rows.length > 0) {
             // Artist & album exist -> insert review
             console.log("insert only review");
-            await insertReview(req.body.userTitle, req.body.userReviewText, req.body.userScore, artistQuery.rows[0].id, albumQuery.rows[0].id, loggedUserId);
+            await insertReview(req.body.userTitle, req.body.userReviewText, req.body.userScore, artistQuery.rows[0].id, albumQuery.rows[0].id, req.user.id);
         }
         res.render("submitMyReview.ejs", {
             successMessage: true,
@@ -478,7 +478,6 @@ app.get("/sign-in", (req,res)=>{
 // Sign out route
 
 app.get("/sign-out", (req,res) => {
-    loggedUserId;
     req.logout( (err) =>{
         if (err) console.log(err);
         res.redirect("/");
