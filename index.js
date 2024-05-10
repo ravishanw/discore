@@ -269,7 +269,8 @@ app.post("/view-my-review", async (req,res) => {
 app.post("/edit-my-review", (req,res) => {
     try {
         if (typeof req.user.id !== null && reviewArray.length === 1) {
-            console.log("review array = ", reviewArray);
+            const reqReferer = req.get('referer');
+            console.log("refRef = ", reqReferer.includes("delete-my-review"));
             res.render("editMyReview.ejs", {
                 artistName: reviewArray[0].artist_name,
                 albumName: reviewArray[0].album_name,
@@ -304,9 +305,11 @@ app.post("/update-my-review", async (req,res) => {
 
 // Delete my review route
 
-app.post("/delete-my-review", (req,res) => {
+app.post("/delete-my-review", async (req,res) => {
     try {
-        console.log("reviewId", reviewId);
+        const deleteId = req.body.deleteId;
+        console.log("deleteReviewId = ", deleteId);
+        // const deletedReview = await db.query("DELETE FROM review WHERE id = $1", [deleteId]);
         res.render("soon.ejs");
     } catch (error) {
         console.error("Failed to delete record from table", error.message);
