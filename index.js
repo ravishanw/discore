@@ -270,8 +270,10 @@ app.post("/edit-my-review", (req,res) => {
     try {
         if (typeof req.user.id !== null && reviewArray.length === 1) {
             const reqReferer = req.get('referer');
-            console.log("refRef = ", reqReferer.includes("delete-my-review"));
+            console.log("reqRef = ", req);
             res.render("editMyReview.ejs", {
+                reqRef: reqReferer.includes("/delete-my-review"),
+                reviewId: reviewArray[0].id,
                 artistName: reviewArray[0].artist_name,
                 albumName: reviewArray[0].album_name,
                 yearNumber: reviewArray[0].album_year,
@@ -310,12 +312,34 @@ app.post("/delete-my-review", async (req,res) => {
         const deleteId = req.body.deleteId;
         console.log("deleteReviewId = ", deleteId);
         // const deletedReview = await db.query("DELETE FROM review WHERE id = $1", [deleteId]);
-        res.render("soon.ejs");
+        res.redirect("/confirm-delete");
     } catch (error) {
         console.error("Failed to delete record from table", error.message);
     }
 });
 
+// Confirm delete route
+
+app.get("/confirm-delete", (req, res) => {
+    try {
+        res.render("confirmDelete.ejs", {
+            reviewId: reviewArray[0].id,
+            artistName: reviewArray[0].artist_name,
+            albumName: reviewArray[0].album_name,
+            yearNumber: reviewArray[0].album_year,
+        });
+    } catch (error) {
+        console.error("Failed to get confirm delete route", error.message);
+    }
+});
+app.post("/confirm-delete", (req, res) => {
+    try {
+        console.log(req.body.deleteConfirmId);
+        res.send("delete review wip");
+    } catch (error) {
+        console.error("Failed to post confirm delete route", error.message);
+    }
+});
 
 // Score route
 
