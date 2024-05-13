@@ -22,6 +22,7 @@ $(document).ready(()=>{
     // Animations
     
     $(".wave-mask").addClass("slideOut");
+    
     function cursorAppear() {
         $(".vertical-line").removeClass("concealer");
         $(".vertical-line").addClass("blink");

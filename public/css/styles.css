@@ -509,7 +509,6 @@ button {
 }
 .slideOut {
     animation: slideOut 1500ms 1;
-    overflow: hidden;
 }
 
 @keyframes slideOut {
