@@ -35,7 +35,12 @@
   <div class="col-md-6 dial-pad-window px-0">
     <div class="explore-divider"></div>
     <div class="dial-pad">
-      <!-- If refReq includes delete-my-review render -->
+      <!-- If reqRef includes delete-my-review render -->
+      <% if (reqRef === true) { %>
+      <h2>Success!</h2>
+      <p>You have successfully deleted your review</p>
+      <a href="/my-reviews" class="neon-key select-btn">Go to my reviews</a>
+      <% } else { %>
       <form action="/confirm-delete" method="POST" autocomplete="off">
         <h2>Are you sure you want to delete this?</h2>
         <p class="body-text">
@@ -52,6 +57,7 @@
         </button>
         <a href="/my-reviews" class="neon-key select-btn">Cancel</a>
       </form>
+      <% } %>
     </div>
   </div>
 </div>

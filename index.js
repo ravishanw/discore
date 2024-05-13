@@ -67,90 +67,101 @@ app.get("/", (req,res)=>{
 // Explore route
 
 app.get("/explore", (req,res)=>{
-    res.render("explore.ejs");
+    try {
+        res.render("explore.ejs");
+    } catch (error) {
+        console.error("Failed to get explore route", error.message);
+        res.render("errorView.ejs");
+    }
 });
 
 app.post("/explore", async (req,res)=>{
-    const searchKey = req.body.dialKey;
 
-    switch(searchKey) {
-        case "see-all":
-            const allArtists = await db.query("SELECT * FROM artist ORDER BY artist_name");
-            selectArray = allArtists.rows;
-            res.render("select.ejs", {
-                selectItems: selectArray
-            });
-            break;
+    try {
+        const searchKey = req.body.dialKey;
 
-        case "abc":
-            const abcArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'a' || '%' OR LOWER (artist_name) LIKE 'b' || '%' OR LOWER (artist_name) LIKE 'c' || '%' ORDER BY artist_name");
-            selectArray = abcArtists.rows;
-            res.render("select.ejs",{
-                selectItems: selectArray
-            });
-            break;
+        switch(searchKey) {
+            case "see-all":
+                const allArtists = await db.query("SELECT * FROM artist ORDER BY artist_name");
+                selectArray = allArtists.rows;
+                res.render("select.ejs", {
+                    selectItems: selectArray
+                });
+                break;
 
-        case "def":
-            const defArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'd' || '%' OR LOWER (artist_name) LIKE 'e' || '%' OR LOWER (artist_name) LIKE 'f' || '%' ORDER BY artist_name");
-            selectArray = defArtists.rows;
-            res.render("select.ejs",{
-                selectItems: selectArray
-            });
-            break;
+            case "abc":
+                const abcArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'a' || '%' OR LOWER (artist_name) LIKE 'b' || '%' OR LOWER (artist_name) LIKE 'c' || '%' ORDER BY artist_name");
+                selectArray = abcArtists.rows;
+                res.render("select.ejs",{
+                    selectItems: selectArray
+                });
+                break;
 
-        case "ghi":
-            const ghiArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'g' || '%' OR LOWER (artist_name) LIKE 'h' || '%' OR LOWER (artist_name) LIKE 'i' || '%' ORDER BY artist_name");
-            selectArray = ghiArtists.rows;
-            res.render("select.ejs",{
-                selectItems: selectArray
-            });
-            break;
+            case "def":
+                const defArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'd' || '%' OR LOWER (artist_name) LIKE 'e' || '%' OR LOWER (artist_name) LIKE 'f' || '%' ORDER BY artist_name");
+                selectArray = defArtists.rows;
+                res.render("select.ejs",{
+                    selectItems: selectArray
+                });
+                break;
 
-        case "jkl":
-            const jklArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'j' || '%' OR LOWER (artist_name) LIKE 'k' || '%' OR LOWER (artist_name) LIKE 'l' || '%' ORDER BY artist_name");
-            selectArray = jklArtists.rows;
-            res.render("select.ejs",{
-                selectItems: selectArray
-            });
-            break;
+            case "ghi":
+                const ghiArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'g' || '%' OR LOWER (artist_name) LIKE 'h' || '%' OR LOWER (artist_name) LIKE 'i' || '%' ORDER BY artist_name");
+                selectArray = ghiArtists.rows;
+                res.render("select.ejs",{
+                    selectItems: selectArray
+                });
+                break;
 
-        case "mno":
-            const mnoArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'm' || '%' OR LOWER (artist_name) LIKE 'n' || '%' OR LOWER (artist_name) LIKE 'o' || '%' ORDER BY artist_name");
-            selectArray = mnoArtists.rows;
-            res.render("select.ejs",{
-                selectItems: selectArray
-            });
-            break;
+            case "jkl":
+                const jklArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'j' || '%' OR LOWER (artist_name) LIKE 'k' || '%' OR LOWER (artist_name) LIKE 'l' || '%' ORDER BY artist_name");
+                selectArray = jklArtists.rows;
+                res.render("select.ejs",{
+                    selectItems: selectArray
+                });
+                break;
 
-        case "pqrs":
-            const pqrsArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'p' || '%' OR LOWER (artist_name) LIKE 'q' || '%' OR LOWER (artist_name) LIKE 'r' || '%' OR LOWER (artist_name) LIKE 's' || '%' ORDER BY artist_name");
-            selectArray = pqrsArtists.rows;
-            res.render("select.ejs",{
-                selectItems: selectArray
-            });
-            break;
+            case "mno":
+                const mnoArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'm' || '%' OR LOWER (artist_name) LIKE 'n' || '%' OR LOWER (artist_name) LIKE 'o' || '%' ORDER BY artist_name");
+                selectArray = mnoArtists.rows;
+                res.render("select.ejs",{
+                    selectItems: selectArray
+                });
+                break;
 
-        case "tuv":
-            const tuvArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 't' || '%' OR LOWER (artist_name) LIKE 'u' || '%' OR LOWER (artist_name) LIKE 'v' || '%' ORDER BY artist_name");
-            selectArray = tuvArtists.rows;
-            res.render("select.ejs",{
-                selectItems: selectArray
-            });
-            break;
+            case "pqrs":
+                const pqrsArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'p' || '%' OR LOWER (artist_name) LIKE 'q' || '%' OR LOWER (artist_name) LIKE 'r' || '%' OR LOWER (artist_name) LIKE 's' || '%' ORDER BY artist_name");
+                selectArray = pqrsArtists.rows;
+                res.render("select.ejs",{
+                    selectItems: selectArray
+                });
+                break;
 
-        case "wxyz":
-            const wxyzArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'w' || '%' OR LOWER (artist_name) LIKE 'x' || '%' OR LOWER (artist_name) LIKE 'y' || '%' OR LOWER (artist_name) LIKE 'z' || '%' ORDER BY artist_name");
-            selectArray = wxyzArtists.rows;
-            res.render("select.ejs",{
-                selectItems: selectArray
-            });
-            break;
+            case "tuv":
+                const tuvArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 't' || '%' OR LOWER (artist_name) LIKE 'u' || '%' OR LOWER (artist_name) LIKE 'v' || '%' ORDER BY artist_name");
+                selectArray = tuvArtists.rows;
+                res.render("select.ejs",{
+                    selectItems: selectArray
+                });
+                break;
 
-        default:
-            console.log("default triggered, searchKey =" + searchKey);
-            res.redirect("/explore");
-            break;
-    }
+            case "wxyz":
+                const wxyzArtists = await db.query("SELECT * FROM artist WHERE LOWER (artist_name) LIKE 'w' || '%' OR LOWER (artist_name) LIKE 'x' || '%' OR LOWER (artist_name) LIKE 'y' || '%' OR LOWER (artist_name) LIKE 'z' || '%' ORDER BY artist_name");
+                selectArray = wxyzArtists.rows;
+                res.render("select.ejs",{
+                    selectItems: selectArray
+                });
+                break;
+
+            default:
+                console.log("default triggered, searchKey =" + searchKey);
+                res.redirect("/explore");
+                break;
+        }
+} catch (error) {
+    console.error("Failed to post explore route", error.message);
+    res.render("errorView.ejs");
+}
 });
 
 // Artist route
@@ -165,6 +176,7 @@ app.post("/artist", async (req,res)=>{
         });
     } catch(error) {
         console.error("Failed to query album database", error.message);
+        res.render("errorView.ejs");
     }
 });
 
@@ -175,20 +187,27 @@ app.post("/album", async (req,res)=>{
     console.log("albumId = ", albumId);
     try {
         const reviewResult = await db.query("SELECT * FROM review JOIN users ON review.user_id = users.id JOIN artist ON review.artist_id = artist.id JOIN album ON review.album_id = album.id WHERE review.album_id = $1",[albumId]);
-        reviewResult.rows.forEach((el)=>{
-            reviewId.push(el.id);
-        });
-        mbId = reviewResult.rows[0].mb_rgid;
-        albumDetails = {
-            detailsArtistName: reviewResult.rows[0].artist_name,
-            detailsAlbumName: reviewResult.rows[0].album_name,
-            detailsAlbumYear: reviewResult.rows[0].album_year
+        if (reviewResult.rows.length === 0) {
+            // If a review doesn't exist for this album
+            res.render("noReview.ejs");
+        } else {
+            // Reviews exist for this album
+            reviewResult.rows.forEach((el)=>{
+                reviewId.push(el.id);
+            });
+            mbId = reviewResult.rows[0].mb_rgid;
+            albumDetails = {
+                detailsArtistName: reviewResult.rows[0].artist_name,
+                detailsAlbumName: reviewResult.rows[0].album_name,
+                detailsAlbumYear: reviewResult.rows[0].album_year
+            }
+            reviewArray = reviewResult.rows;
+            console.log("reviewId = ", reviewId);
+            res.redirect("/review");
         }
-        reviewArray = reviewResult.rows;
-        console.log("reviewId = ", reviewId);
-        res.redirect("/review");
     } catch(error) {
         console.error("failed query review table", error.message);
+        res.render("errorView.ejs");
     }
 });
 
@@ -214,19 +233,25 @@ app.get("/review", async (req,res)=>{
         });
     } catch(error) {
         console.error("Failed to make discore database query", error.message);
+        res.render("errorView.ejs");
     }
 });
 
 // My Discore route
 
 app.get("/my-discore", (req, res) => {
-    if (req.isAuthenticated() === true) {
-        console.log("This is the user data", req.user);
-        res.render("myDiscore.ejs", {
-            userName: req.user.user_name,
-        });
-    } else {
-        res.redirect("/sign-in");
+    try {
+        if (req.isAuthenticated() === true) {
+            console.log("This is the user data", req.user);
+            res.render("myDiscore.ejs", {
+                userName: req.user.user_name,
+            });
+        } else {
+            res.redirect("/sign-in");
+        }
+    } catch (error) {
+        console.error("Failed to get my discore route", error.messsage);
+        res.render("errorView.ejs");
     }
 });
 
@@ -241,6 +266,7 @@ app.get("/my-reviews", async (req,res) => {
         });
     } catch (error) {
         console.error("Failed to make discore database query for my reviews", error.message);
+        res.render("errorView.ejs");
     }
 });
 
@@ -261,6 +287,7 @@ app.post("/view-my-review", async (req,res) => {
         res.redirect("/review");
     } catch (error) {
         console.error("Failed to query data for view my review", error.message);
+        res.render("errorView.ejs");
     }
 });
 
@@ -286,6 +313,7 @@ app.post("/edit-my-review", (req,res) => {
         }
     } catch (error) {
         console.error("Failed to post edit my review", error.message);
+        res.render("errorView.ejs");
     }
 });
 
@@ -302,19 +330,20 @@ app.post("/update-my-review", async (req,res) => {
         res.redirect("/review");
     } catch (error) {
         console.error("Failed to post submit my review", error.message);
+        res.render("errorView.ejs");
     }
 });
 
 // Delete my review route
 
-app.post("/delete-my-review", async (req,res) => {
+app.post("/delete-my-review", (req,res) => {
     try {
         const deleteId = req.body.deleteId;
         console.log("deleteReviewId = ", deleteId);
-        // const deletedReview = await db.query("DELETE FROM review WHERE id = $1", [deleteId]);
         res.redirect("/confirm-delete");
     } catch (error) {
         console.error("Failed to delete record from table", error.message);
+        res.render("errorView.ejs");
     }
 });
 
@@ -322,7 +351,10 @@ app.post("/delete-my-review", async (req,res) => {
 
 app.get("/confirm-delete", (req, res) => {
     try {
+        const reqReferer = req.get("referer");
+        console.log(reqReferer);
         res.render("confirmDelete.ejs", {
+            reqRef: reqReferer.includes("/confirm-delete"),
             reviewId: reviewArray[0].id,
             artistName: reviewArray[0].artist_name,
             albumName: reviewArray[0].album_name,
@@ -330,31 +362,45 @@ app.get("/confirm-delete", (req, res) => {
         });
     } catch (error) {
         console.error("Failed to get confirm delete route", error.message);
+        res.render("errorView.ejs");
     }
 });
-app.post("/confirm-delete", (req, res) => {
+app.post("/confirm-delete", async (req, res) => {
     try {
-        console.log(req.body.deleteConfirmId);
-        res.send("delete review wip");
+        const deleteId = req.body.deleteConfirmId;
+        await db.query("DELETE FROM review WHERE id = $1", [deleteId]);
+        res.redirect("/confirm-delete");
     } catch (error) {
         console.error("Failed to post confirm delete route", error.message);
+        res.render("errorView.ejs");
     }
 });
 
 // Score route
 
 app.get("/score", (req,res)=>{
-    if (req.isAuthenticated() === true) {
-        res.redirect("/search-artist");
-    } else {
-        res.redirect("/sign-in");
-    }
+    try {
+        if (req.isAuthenticated() === true) {
+            res.redirect("/search-artist");
+        } else {
+            res.redirect("/sign-in");
+        }
+    } catch (error) {
+        console.error("Failed to get score route", error.message);
+        res.render("errorView.ejs");
+    }    
 });
 
 // Search artist
 
 app.get("/search-artist", (req,res) => {
-    res.render("searchArtist.ejs");
+    try {
+        res.render("searchArtist.ejs");
+    } catch (error) {
+        console.error("Failed to get search artist route", error.message);
+        res.render("errorView.ejs");
+    }
+    
 });
 app.post("/search-artist", async (req,res) => {
     try {
@@ -370,6 +416,7 @@ app.post("/search-artist", async (req,res) => {
         res.redirect("/confirm-artist");
     } catch (error) {
         console.error("Failed to query musicbrainz for artist name", error.message);
+        res.render("errorView.ejs");
     }
     
 });
@@ -377,9 +424,14 @@ app.post("/search-artist", async (req,res) => {
 // Confirm artist route
 
 app.get("/confirm-artist", (req,res) => {
-    res.render("confirmArtist.ejs", {
-        confirmArtistArr: mbSearchArtistArr,
-    });
+    try {
+        res.render("confirmArtist.ejs", {
+            confirmArtistArr: mbSearchArtistArr,
+        });
+    } catch (error) {
+        console.error("Failed to get confirm artist route", error.message);
+        res.render("errorView.ejs");
+    }
 });
 app.post("/confirm-artist", async (req,res) => {
     try {
@@ -393,50 +445,60 @@ app.post("/confirm-artist", async (req,res) => {
         res.redirect("/select-album");
     } catch (error) {
         console.error("Failed to query musicbrainz for albums | eps", error.message);
+        res.render("errorView.ejs");
     }
-    
 });
 
 // Select album route
 
 app.get("/select-album", (req,res) => {
-    console.log(mbSearchAlbumArr);
-    res.render("selectAlbum.ejs", {
+    try {
+        console.log(mbSearchAlbumArr);
+        res.render("selectAlbum.ejs", {
         selectAlbumArr: mbSearchAlbumArr,
     });
+    } catch (error) {
+        console.error("Failed to get select album route", error.message);
+        res.render("errorView.ejs");
+    }
 });
 app.post("/select-album", async (req,res) => {
-    console.log(`selected albumId =  ${req.body.mbAlbumId}`);
-    // Filter searchAlbumArr by albumId
-    const thisAlbum = mbSearchAlbumArr.filter((item) => item.id === req.body.mbAlbumId);
-    albumDetails.detailsAlbumName = thisAlbum[0].title;
-    albumDetails.detailsAlbumYear = new Date(thisAlbum[0]["first-release-date"]).getFullYear();
-    mbId = thisAlbum[0].id;
-    console.log("this album = ", thisAlbum);
+    try {
+        console.log(`selected albumId =  ${req.body.mbAlbumId}`);
+        // Filter searchAlbumArr by albumId
+        const thisAlbum = mbSearchAlbumArr.filter((item) => item.id === req.body.mbAlbumId);
+        albumDetails.detailsAlbumName = thisAlbum[0].title;
+        albumDetails.detailsAlbumYear = new Date(thisAlbum[0]["first-release-date"]).getFullYear();
+        mbId = thisAlbum[0].id;
+        console.log("this album = ", thisAlbum);
 
-    // Check if a review exists for selected album/artist by user
+        // Check if a review exists for selected album/artist by user
 
-    const reviewQuery = await db.query("SELECT review.id AS r_id, artist_name, album_name, mb_rgid, user_id AS u_id FROM review JOIN artist ON artist_id = artist.id JOIN album ON album_id = album.id JOIN users ON user_id = users.id WHERE user_id = $1 AND artist_name = $2 AND album_name = $3", 
-    [req.user.id, albumDetails.detailsArtistName, albumDetails.detailsAlbumName]);
-    console.log("reviewQuery = ", reviewQuery.rows);
+        const reviewQuery = await db.query("SELECT review.id AS r_id, artist_name, album_name, mb_rgid, user_id AS u_id FROM review JOIN artist ON artist_id = artist.id JOIN album ON album_id = album.id JOIN users ON user_id = users.id WHERE user_id = $1 AND artist_name = $2 AND album_name = $3", 
+        [req.user.id, albumDetails.detailsArtistName, albumDetails.detailsAlbumName]);
+        console.log("reviewQuery = ", reviewQuery.rows);
 
-    if (reviewQuery.rows.length > 0) {
-        res.render("submitMyReview.ejs", {
-            successMessage: false,
-            artistName: albumDetails.detailsArtistName,
-            albumName: albumDetails.detailsAlbumName,
-            yearNumber: albumDetails.detailsAlbumYear
-        });
-        return;
-    } else {
-        res.render("submitMyReview.ejs", {
-            successMessage: "",
-            artistName: albumDetails.detailsArtistName,
-            albumName: albumDetails.detailsAlbumName,
-            yearNumber: albumDetails.detailsAlbumYear
-        });
-
-    }   
+        if (reviewQuery.rows.length > 0) {
+            res.render("submitMyReview.ejs", {
+                successMessage: false,
+                artistName: albumDetails.detailsArtistName,
+                albumName: albumDetails.detailsAlbumName,
+                yearNumber: albumDetails.detailsAlbumYear
+            });
+            return;
+        } else {
+            res.render("submitMyReview.ejs", {
+                successMessage: "",
+                artistName: albumDetails.detailsArtistName,
+                albumName: albumDetails.detailsAlbumName,
+                yearNumber: albumDetails.detailsAlbumYear
+            });
+        }
+    } catch (error) {
+        console.error("Failed to post select album route", error.message);
+        res.render("errorView.ejs");
+    }
+       
 });
 
 // Submit my review route
@@ -493,6 +555,7 @@ app.post("/submit-my-review", async (req,res) => {
         });
     } catch (error) {
         console.error("Failed to post data to submit my review route", error.message);
+        res.render("errorView.ejs");
     }
 });
 
