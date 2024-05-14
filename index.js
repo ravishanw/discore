@@ -40,7 +40,6 @@ let albumDetails = {
     detailsAlbumYear: ""
 };
 let reviewArray = [];
-let reviewId = [];
 let selectArray = [];
 let mbId = "";
 let mbSearchArtistArr = [];
@@ -192,9 +191,6 @@ app.post("/album", async (req,res)=>{
             res.render("noReview.ejs");
         } else {
             // Reviews exist for this album
-            reviewResult.rows.forEach((el)=>{
-                reviewId.push(el.id);
-            });
             mbId = reviewResult.rows[0].mb_rgid;
             albumDetails = {
                 detailsArtistName: reviewResult.rows[0].artist_name,
@@ -202,7 +198,6 @@ app.post("/album", async (req,res)=>{
                 detailsAlbumYear: reviewResult.rows[0].album_year
             }
             reviewArray = reviewResult.rows;
-            console.log("reviewId = ", reviewId);
             res.redirect("/review");
         }
     } catch(error) {
