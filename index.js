@@ -585,7 +585,7 @@ app.get("/auth/google", passport.authenticate("google", {
 passport.use("google", new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://peach-abalone-gear.cyclic.app/auth/google"
+    callbackURL: "https://di-score.com/auth/google"
 }, async (accessToken, refreshToken, profile, cb) => {
     try {
         const result = await db.query("SELECT * FROM users WHERE email = $1", [profile._json.email]);
