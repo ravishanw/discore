@@ -100,9 +100,6 @@ input, textarea {
     font-size: 1rem;
     padding: 5px 10px;
 }
-.navbar-nav a {
-    width: 7.5rem;
-}
 button.navbar-toggler {
     border: 1px solid #008170;
     box-shadow: none;
@@ -171,11 +168,11 @@ button.navbar-toggler {
 }
 .numeric {
     color:#eeeeee;
-    margin: 0 10px 0 0;
+    margin: 0 10px;
 }
 .welcome-screen a {
     font-size: 1.7rem;
-    width: 12rem;
+    /* width: 12rem; */
 }
 .welcome-screen a:nth-child(2) {
     margin: 5px 0;
@@ -603,9 +600,7 @@ button {
     }
     .welcome-screen a {
         font-size: 1.2rem;
-    }
-    .welcome-screen a {
-        width: 8rem;
+        /* width: 8rem; */
     }
     .welcome-menu-inner {
         padding-top: 20px;
@@ -706,9 +701,6 @@ button {
     }
 }
 @media (max-width: 975px) {
-    .navbar-nav a {
-        width: 6.5rem;
-    }
     .h-titan {
         font-size: 5rem;
     }
@@ -732,7 +724,7 @@ button {
     }
     .welcome-screen a {
         font-size: 1.5rem;
-        width: 12rem;
+        /* width: 12rem; */
     }
     .wave img {
         height: 200px;
@@ -886,9 +878,7 @@ button {
 }
 @media (max-width: 576px) {
     /* navbar */
-    .navbar-nav a {
-        width: 7rem;
-    }
+    
     /* welcome screen */
     .welcome-screen h1 {
         padding-left: 7%;
