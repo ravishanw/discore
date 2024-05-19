@@ -63,9 +63,9 @@ app.get("/", (req,res)=>{
     res.render("index.ejs");
 });
 
-app.get("/terms-privacy-policy", (req,res) => {
+app.get("/terms-policy", (req,res) => {
     try {
-        res.render("privacyPolicy.ejs");
+        res.render("termsPolicy.ejs");
     } catch (error) {
         console.error("Failed to get terms and privacy policy route", error.message);
     }
