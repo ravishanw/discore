@@ -63,6 +63,14 @@ app.get("/", (req,res)=>{
     res.render("index.ejs");
 });
 
+app.get("/terms-privacy-policy", (req,res) => {
+    try {
+        res.render("privacyPolicy.ejs");
+    } catch (error) {
+        console.error("Failed to get terms and privacy policy route", error.message);
+    }
+});
+
 // Explore route
 
 app.get("/explore", (req,res)=>{
@@ -585,7 +593,7 @@ app.get("/auth/google", passport.authenticate("google", {
 passport.use("google", new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://di-score.com/auth/google"
+    callbackURL: process.env.GOOGLE_CALLBACK
 }, async (accessToken, refreshToken, profile, cb) => {
     try {
         const result = await db.query("SELECT * FROM users WHERE email = $1", [profile._json.email]);
