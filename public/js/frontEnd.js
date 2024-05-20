@@ -19,6 +19,11 @@ $(document).ready(()=>{
             break;
     }
 
+    // Footer copyright year
+
+    let thisYear = new Date().getFullYear();
+    $(".copy-year").text(thisYear);
+
     // Animations
     
     $(".wave-mask").addClass("slideOut");

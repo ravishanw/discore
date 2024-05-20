@@ -241,8 +241,22 @@ footer {
     width: 100%;
     z-index: 1;
 }
+footer p, footer a {
+    flex:1;
+}
 footer p {
     margin: 0;
+    text-align: end;
+}
+footer a {
+    color:#eeeeee;
+    text-align: left;
+}
+footer div {
+    margin: 0 10px;
+}
+footer a:hover {
+    font-weight: 900;
 }
 
 /* Review route */
