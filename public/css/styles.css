@@ -1,5 +1,6 @@
 h1 {
     font-size: 2rem;
+    margin: 4rem 0;
 }
 h2 {
     font-size: 1.2rem;
@@ -452,7 +453,6 @@ button {
 
 .score-steps {
     list-style-type: none;
-    padding: 0;
 }
 .score-steps li {
     margin-bottom: 20px;
@@ -504,6 +504,9 @@ button {
     margin-bottom: 20px;
     overflow: scroll;
     padding-right: 20px;
+}
+.terms-nav li {
+    padding: 0 10px;
 }
 .hyper {
     font-weight: 900;

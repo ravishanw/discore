@@ -22,6 +22,17 @@ $(document).ready(()=>{
     // Animations
     
     $(".wave-mask").addClass("slideOut");
+    $(".terms-nav a").click(()=>{
+        $(".terms-nav li").toggleClass("score-active");
+        $(".tos-container").addClass("fadeIn");
+        setTimeout(()=>{
+            $(".tos-container").removeClass("fadeIn");
+        }, "1500");
+        $(".privacy-container").addClass("fadeIn");
+        setTimeout(()=>{
+            $(".privacy-container").removeClass("fadeIn");
+        }, "1500");
+    });
     
     function cursorAppear() {
         $(".vertical-line").removeClass("concealer");
