@@ -243,6 +243,7 @@ footer {
 }
 footer p, footer a {
     flex:1;
+    padding: 5px;
 }
 footer p {
     margin: 0;
@@ -724,11 +725,6 @@ button {
         font-size: 1.2rem;
         padding-left: 15px;
     }
-    /* .select-window {
-        max-height: 90%;
-        overflow: scroll;
-        padding: 15px;
-    } */
     .review-row {
         padding: 6% 0;
     }
@@ -774,13 +770,18 @@ button {
     }
 }
 @media (max-width: 768px) {
+    /* Global */
+    h2 {
+        font-size: 1rem;
+    }
     /* navbar */
     .navbar {
         background-color: #0F0F0F;
+        border-bottom: 1px solid #008170;
+        position: fixed;
     }
     .navbar-nav {
         padding-left: 0;
-        border-bottom: 1px solid #008170;
     }
     .nav-item {
         margin-bottom: 8px;
@@ -832,6 +833,7 @@ button {
         visibility: hidden;
     }
     .dial-pad {
+        height: 80%;
         padding: 2%;
     }
     .dial-pad h2 {
@@ -845,15 +847,13 @@ button {
         width: 100px;
     }
     /* select view */
-    /* .select-window {
-        max-height: 90%;
-        overflow: scroll;
-        padding: 15px;
-    } */
     .select-btn {
         justify-content: center;
     }
     /* review window */
+    .review-row {
+        padding: 6% 0 20%;
+    }
     .album-art-window {
         display: flex;
         height: 40%;
@@ -869,14 +869,20 @@ button {
         padding: 0 25%;
     }
     .review-window {
-        height: 60%;
-        padding: 7% 5%;
-    }
-    .review-window h2 {
-        font-size: 1rem;
+        /* height: 60%; */
+        /* height: 100%; */
+        padding: 7% 5% 15%;
     }
     .reviews-array {
-        max-height: 320px;
+        /* max-height: 320px; */
+        height: fit-content;
+        max-height: 100%;
+        overflow: visible;
+        padding: 0;
+    }
+    /* Footer */
+    footer {
+        position: fixed;
     }
 }
 
@@ -964,9 +970,9 @@ button {
     .cyber-grid {
         top: 52%;
     }
-    .reviews-array {
+    /* .reviews-array {
         max-height: 260px;
-    }
+    } */
 }
 
 @media (max-width: 360px) {
@@ -995,9 +1001,9 @@ button {
     .album-art-window {
         height: 30%;
     }
-    .review-window {
+    /* .review-window {
         height: 70%;
-    }
+    } */
     .album-art {
         margin: 10% auto 2%;
     }
@@ -1047,9 +1053,9 @@ button {
     .cyber-grid {
         top: 60%;
     }
-    .reviews-array {
+    /* .reviews-array {
         max-height: 240px;
-    }
+    } */
 }
 
 /* Galaxy fold */
@@ -1107,13 +1113,13 @@ button {
         margin: 20% auto 10%;
         width: 100%;
     }
-    .review-window {
+    /* .review-window {
         height: 70%;
-    }
+    } */
     .review-divider {
         margin: 10px 0;
     }
-    .reviews-array {
+    /* .reviews-array {
         max-height: 300px;
-    }
+    } */
 }
