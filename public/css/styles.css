@@ -638,7 +638,6 @@ button {
     }
     .welcome-screen a {
         font-size: 1.2rem;
-        /* width: 8rem; */
     }
     .welcome-menu-inner {
         padding-top: 20px;
@@ -757,7 +756,6 @@ button {
     }
     .welcome-screen a {
         font-size: 1.5rem;
-        /* width: 12rem; */
     }
     .wave img {
         height: 200px;
@@ -806,23 +804,27 @@ button {
     }
     /* explore route */
     .branding-window {
-        height: 40%;
+        height: fit-content;
     }
     .dial-pad-window {
         height: 60%;
     }
     .h-discore-container {
-        bottom: 30%;
+        margin-left: calc(3% + 10px);
+        margin-right: calc(3% + 10px);
+        margin-top: 15%;
+        position: static;
     }
     .discore-titan {
         height: 60px;
     }
     .h-titan {
         font-size: 4rem;
+        margin: 0;
     }
     .wave-titan {
         height: 150px;
-        position: absolute;
+        position: static;
         bottom: 1px;
         width: 100%;
     }
@@ -834,7 +836,10 @@ button {
     }
     .dial-pad {
         height: 80%;
-        padding: 2%;
+        padding-bottom: 2%;
+        padding-left: calc(3% + 10px);
+        padding-right: calc(3% + 10px);
+        padding-top: 2%;
     }
     .dial-pad h2 {
         text-align: center;
@@ -848,6 +853,7 @@ button {
     }
     /* select view */
     .select-btn {
+        font-size: 1rem;
         justify-content: center;
     }
     /* review window */
@@ -869,16 +875,33 @@ button {
         padding: 0 25%;
     }
     .review-window {
-        /* height: 60%; */
-        /* height: 100%; */
         padding: 7% 5% 15%;
     }
     .reviews-array {
-        /* max-height: 320px; */
         height: fit-content;
         max-height: 100%;
         overflow: visible;
         padding: 0;
+    }
+    /* Edit my review route */
+    .discore-score {
+        height:50px;
+    }
+    /* Terms and privacy route */
+    .terms-container {
+        height: 100%;
+        padding-bottom: 20%;
+        overflow: visible;
+        padding-right: 0;
+    }
+    .terms-container h2 {
+        text-align: left;
+    }
+    .terms-back-btn {
+        visibility: hidden;
+    }
+    .score-steps li {
+        margin-bottom: 10px;
     }
     /* Footer */
     footer {
@@ -970,9 +993,6 @@ button {
     .cyber-grid {
         top: 52%;
     }
-    /* .reviews-array {
-        max-height: 260px;
-    } */
 }
 
 @media (max-width: 360px) {
@@ -1113,13 +1133,7 @@ button {
         margin: 20% auto 10%;
         width: 100%;
     }
-    /* .review-window {
-        height: 70%;
-    } */
     .review-divider {
         margin: 10px 0;
     }
-    /* .reviews-array {
-        max-height: 300px;
-    } */
 }
