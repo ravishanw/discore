@@ -26,6 +26,23 @@ input, textarea {
     font-family: 'IBM Plex Mono', monospace;
     margin-bottom: 20px;
 }
+.floating-rocket {
+    align-items: center;
+    background-color: #008170;
+    border-radius: 5px 0 0 5px;
+    bottom: 30%;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    position: fixed;
+    right: 0;
+    visibility: hidden;
+    width: 60px;
+    z-index: 20;
+}
+.rocket-icon {
+    color:#eeeeee;
+}
 
 /* Custom scrollbar */
 
@@ -806,8 +823,11 @@ button {
     .branding-window {
         height: fit-content;
     }
-    .dial-pad-window {
-        height: 60%;
+    .select-window {
+        height:100%;
+        padding: 20px 0;
+        margin-bottom: 20px;
+        overflow: visible;
     }
     .h-discore-container {
         margin-left: calc(3% + 10px);
@@ -835,8 +855,8 @@ button {
         visibility: hidden;
     }
     .dial-pad {
-        height: 80%;
-        padding-bottom: 2%;
+        height: fit-content;
+        padding-bottom: 18%;
         padding-left: calc(3% + 10px);
         padding-right: calc(3% + 10px);
         padding-top: 2%;
