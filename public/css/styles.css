@@ -854,6 +854,9 @@ button {
     .explore-divider {
         visibility: hidden;
     }
+    .dial-pad-window {
+        height: fit-content;
+    }
     .dial-pad {
         height: fit-content;
         padding-bottom: 18%;

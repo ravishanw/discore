@@ -73,7 +73,11 @@ $(document).ready(()=>{
     }, options);
 
     const scrollDivs = document.querySelector(".scroll-div");
-    observer.observe(scrollDivs);
+    
+    if (scrollDivs !== null) {
+        observer.observe(scrollDivs);
+    }
+    
     
 
 });
