@@ -159,14 +159,20 @@ button.navbar-toggler {
 /* Welcome screen */
 
 .welcome-screen {
-    margin-top: 10%;
+    margin-top: 8%;
     width: 100%;
 }
 .welcome-discore {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 0;
 }
 .welcome-screen h1 {
     font-size: 9rem;
+}
+.welcome-screen h1, .welcome-screen h2 {
+    margin: 0;
     padding-right: 60px;
     text-align:end;
     width:100%;
@@ -175,16 +181,19 @@ button.navbar-toggler {
     width: fit-content;
 }
 .vertical-line {
-    border-left: 5px solid #008170;
-    height: 80px;
-    margin-top: 18px;
+    background-color:#008170;
+    height: 100%;
     padding:0;
-    width: fit-content;
+    width: 4px;
 }
 .concealer {
     opacity: 0;
 }
 .link-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
     padding-left:55px;
 }
 .numeric {
@@ -201,11 +210,12 @@ button.navbar-toggler {
 .welcome-menu {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    min-height: 100%;
     padding: 0;
 }
 .welcome-menu-inner {
     padding-top: 40px;
+    height: 100%;
 }
 
 /* Moon */
@@ -557,7 +567,7 @@ button {
     animation: blink 2s 1;
 }
 .fadeIn {
-    animation: fadeIn 1s 1;
+    animation: fadeIn 750ms 1;
 }
 .slideOut {
     animation: slideOut 1500ms 1;
@@ -657,10 +667,7 @@ button {
         font-size: 1.2rem;
     }
     .welcome-menu-inner {
-        padding-top: 20px;
-    }
-    .vertical-line {
-        margin-top: 10px;
+        padding-top: 0;
     }
     .discore-moon {
         bottom: 40%;
@@ -707,14 +714,8 @@ button {
     .welcome-screen a {
         font-size: 1.2rem;
     }
-    .neon-border a {
-        width: 8rem;
-    }
     .welcome-menu-inner {
-        padding-top: 20px;
-    }
-    .vertical-line {
-        margin-top: 10px;
+        padding-top: 0;
     }
     .discore-moon {
         bottom: 45%;
@@ -805,12 +806,11 @@ button {
         height: 0;
     }
     /* welcome screen */
-    .welcome-screen h1 {
+    .welcome-screen h1, .welcome-screen h2 {
         padding-right: 30px;
     }
     .vertical-line {
-        border-left: 2px solid #008170;
-        height: 80px;
+        width: 2px;
     }
     .link-container {
         padding-left: 28px;
@@ -939,6 +939,10 @@ button {
     .navbar-nav {
         border-bottom: none;
     }
+    /* welcome screen */
+    .welcome-menu-inner {
+        padding-top: 0;
+    }
     /* explore route */
     .branding-window {
         height: 100%;
@@ -969,12 +973,13 @@ button {
     /* navbar */
     
     /* welcome screen */
-    .welcome-screen h1 {
+    .welcome-screen h1, .welcome-screen h2 {
         padding-left: 7%;
         text-align: left;
     }
     .welcome-menu-inner {
         padding-left: 7%;
+        padding-top: 10%;
     }
     .vertical-line {
         height: 1rem;
